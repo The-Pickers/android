@@ -1,4 +1,4 @@
-package gsc.ZupSar
+package gsc.ZupStar
 
 import org.junit.Test
 

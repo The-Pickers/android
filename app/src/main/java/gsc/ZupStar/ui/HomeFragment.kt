@@ -1,4 +1,4 @@
-package gsc.ZupSar.sampledata
+package gsc.ZupStar.sampledata
 
 import android.os.Bundle
 import android.view.LayoutInflater

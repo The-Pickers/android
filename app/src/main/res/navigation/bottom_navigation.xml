@@ -13,7 +13,7 @@
         />
     <fragment
         android:id="@+id/navigation_map"
-        android:name="gsc.ZupStar.sampledata.MapFragment"
+        android:name="gsc.ZupStar.ui.map.MapFragment"
         android:label="@string/nav_map"
         tools:layout="@layout/fragment_map" />
     <fragment

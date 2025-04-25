@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.App.Pretendard.Bold" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+<!--        <item name="android:fontFamily">@font/pretendard_semi_bold</item>-->
+
+    </style>
+
+    <style name="TextAppearance.App.Pretendard.Basic" parent="TextAppearance.AppCompat">
+
+    </style>
+    <style name="TextAppearance.App.Montserrat.Bold" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+<!--        <item name="android:fontFamily">@font/montserrat_font</item>-->
+    </style>
+    <style name="TextAppearance.App.Montserrat.Basic" parent="TextAppearance.AppCompat">
+<!--        <item name="android:fontFamily">@font/montserrat_font</item>-->
+    </style>
+</resources>

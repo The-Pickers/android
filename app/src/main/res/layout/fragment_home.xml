@@ -13,7 +13,7 @@
         android:text="바다 거북 2마리를\n살리셨나요?"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
         app:layout_constraintBottom_toTopOf="@id/layout_bottom"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -28,7 +28,7 @@
 
         <LinearLayout
             android:id="@+id/test_Layout1"
-            android:layout_width="114dp"
+            android:layout_width="100dp"
             android:layout_height="130dp"
             android:layout_marginStart="21dp"
             android:background="@drawable/background_button"
@@ -42,7 +42,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mission"
-                android:textSize="15sp" />
+                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
+                />
 
             <View
                 android:layout_width="0dp"
@@ -54,12 +56,13 @@
                 android:layout_height="40dp"
                 android:text="24"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
+                android:textColor="@color/text_highlight"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/test_Layout2"
-            android:layout_width="170dp"
+            android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_marginStart="6dp"
             android:background="@drawable/background_button"
@@ -73,7 +76,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Points"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.App.Pretendard.Basic" />
 
             <View
                 android:layout_width="0dp"
@@ -85,12 +89,13 @@
                 android:layout_height="40dp"
                 android:text="+12345"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
+                android:textColor="@color/text_highlight"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/test_Layout3"
-            android:layout_width="140dp"
+            android:layout_width="100dp"
             android:layout_height="130dp"
             android:layout_marginStart="6dp"
             android:background="@drawable/background_button"
@@ -104,7 +109,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CO2\nReduced"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.App.Pretendard.Basic" />
 
             <View
                 android:layout_width="0dp"
@@ -116,7 +122,8 @@
                 android:layout_height="40dp"
                 android:text="24"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
+                android:textColor="@color/text_highlight" />
         </LinearLayout>
 
         <TextView
@@ -124,11 +131,11 @@
             android:layout_height="61dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="32dp"
-            android:background="#C6F6DE"
+            android:background="@color/sub_color"
             android:gravity="center"
             android:text="Get Start"
             android:textSize="18sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

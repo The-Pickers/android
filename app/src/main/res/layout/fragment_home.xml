@@ -133,13 +133,13 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/btn_start"
             android:layout_width="match_parent"
             android:layout_height="61dp"
-
             android:layout_marginBottom="32dp"
             android:background="@color/sub_color"
             android:gravity="center"
-            android:text="Get Start"
+            android:text="@string/text_home_botton"
             android:textSize="18sp"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
             app:layout_constraintBottom_toBottomOf="parent" />

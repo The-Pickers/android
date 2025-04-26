@@ -14,15 +14,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import android.Manifest
+import gsc.ZupStar.R
 import gsc.ZupStar.databinding.FragmentHomeBinding
+import gsc.ZupStar.ui.MissionCompleteActivity
 
 
 class HomeFragment : Fragment() {
     lateinit var binding : FragmentHomeBinding
 
     private val TAG = javaClass.simpleName
+    private var isWorking : Boolean = false
     companion object{
-        const val REQUEST_VIDEO_CAPTURE = 1
         const val REQUEST_CAMERA_PERMISSION = 100
     }
 
@@ -33,16 +35,31 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
 
-        binding.layoutBottom.setOnClickListener {
+        binding.btnStart.setOnClickListener {
             checkCameraPermissionAndLaunch()
         }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.btnStart.text = if (isWorking) "Complete !" else "Get Start"
     }
     private val videoCaptureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val videoUri: Uri? = result.data?.data
             if (videoUri != null) {
                 Log.d(TAG, "Captured video Uri: $videoUri")
+                if (isWorking){
+                    val intent = Intent(requireActivity(),MissionCompleteActivity::class.java)
+                    intent.putExtra("video_uri", videoUri.toString())
+                    startActivity(intent)
+                }
+                else{
+                   // binding.btnStart.text="Complete !"
+                }
+                isWorking = !isWorking
+
             } else {
                 Log.d(TAG, "No video Uri received.")
             }

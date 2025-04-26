@@ -4,4 +4,6 @@
     <string name="nav_map">map</string>
     <string name="nav_ranking">Rankings</string>
     <string name="nav_profile">Profile</string>
+
+    <string name="text_home_botton">Get Start</string>
 </resources>

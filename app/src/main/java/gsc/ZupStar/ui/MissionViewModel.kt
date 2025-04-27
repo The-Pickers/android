@@ -19,13 +19,14 @@ class MissionViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val TAG = javaClass.simpleName
+    private val token = "token"
 
     private val _mission = MutableLiveData<MissionData>()
     val mission : LiveData<MissionData> get() = _mission
 
     private val _missionIdx = MutableLiveData<Int>()
     val missionIdx : LiveData<Int> get() = _missionIdx
-    private val token = "token"
+
 
     fun getMission(){
         viewModelScope.launch {

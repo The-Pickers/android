@@ -17,8 +17,10 @@ import android.Manifest
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
+import gsc.ZupStar.data.AccountData
 import gsc.ZupStar.data.VideoData
 import gsc.ZupStar.databinding.FragmentHomeBinding
+import gsc.ZupStar.ui.HomeViewModel
 import gsc.ZupStar.ui.MissionCompleteActivity
 import gsc.ZupStar.ui.MissionViewModel
 import java.time.LocalDateTime
@@ -27,7 +29,8 @@ import java.time.LocalDateTime
 class HomeFragment : Fragment() {
     lateinit var binding : FragmentHomeBinding
     private val TAG = javaClass.simpleName
-    private val viewModel : MissionViewModel by viewModels()
+    private val missionViewModel : MissionViewModel by viewModels()
+    private val homeViewModel : HomeViewModel by viewModels()
     private var missionIdx : Int = 0
     private var location : String = "location"
     private var uri : Uri? = null
@@ -50,12 +53,13 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG,"fragment resume ${missionIdx}")
         binding.btnStart.text = if (missionIdx != 0) "Complete !" else "Get Start"
+        homeViewModel.getComment()
+        homeViewModel.getAccount()
     }
 
     private fun setUpObservers(){
-        viewModel.mission.observe(viewLifecycleOwner, Observer {
+        missionViewModel.mission.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
             missionIdx = 0
             Log.d(TAG,"fragment completed ${missionIdx}")
@@ -65,11 +69,27 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         } )
 
-        viewModel.missionIdx.observe(viewLifecycleOwner, Observer {
+        missionViewModel.missionIdx.observe(viewLifecycleOwner, Observer {
             if(it == null) return@Observer
             missionIdx = it
             Log.d(TAG,"fragment start ${missionIdx}")
         })
+
+        homeViewModel.comment.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            binding.tvComment.text = it
+        })
+
+        homeViewModel.account.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            setAccountInfo(it)
+        })
+    }
+
+    private fun setAccountInfo(data: AccountData) {
+        binding.tvMission.text = data.missionCount.toString()
+        binding.tvPoint.text ='+'+data.totalScore.toString()
+        binding.tvCo2.text = data.carbonReduction.toString()
     }
 
     private val videoCaptureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -80,10 +100,10 @@ class HomeFragment : Fragment() {
                 val video  = VideoData(videoUri,location, LocalDateTime.now().toString())
                 if (missionIdx != 0){
                     uri = videoUri
-                    viewModel.completeMission(0,video)
+                    missionViewModel.completeMission(0,video)
                 }
                 else{
-                    viewModel.startMission(video)
+                    missionViewModel.startMission(video)
                 }
 
             } else {

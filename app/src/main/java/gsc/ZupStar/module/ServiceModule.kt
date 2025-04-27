@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import gsc.ZupStar.NetWork.Repository.MissionRepository
 import gsc.ZupStar.NetWork.RepositoryImpl.MissionRepositoryImpl
+import gsc.ZupStar.NetWork.Service.HomeService
 import gsc.ZupStar.NetWork.Service.MissionService
 import retrofit2.Retrofit
 
@@ -18,6 +19,11 @@ object ServiceModule {
     }
     @Provides
     fun missionApi(@NetworkModule.BaseRetrofit retrofit: Retrofit): MissionService{
+        return retrofit.buildService()
+    }
+
+    @Provides
+    fun homeApi(@NetworkModule.BaseRetrofit retrofit: Retrofit): HomeService{
         return retrofit.buildService()
     }
 }

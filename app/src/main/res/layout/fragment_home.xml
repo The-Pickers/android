@@ -6,6 +6,7 @@
     android:background="@color/black">
 
     <TextView
+        android:id="@+id/tv_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -54,6 +55,7 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/tv_mission"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="24"
@@ -89,6 +91,7 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/tv_point"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="+12345"
@@ -124,6 +127,7 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/tv_co2"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="24"
@@ -132,12 +136,13 @@
                 android:textColor="@color/text_highlight" />
         </LinearLayout>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_start"
             android:layout_width="match_parent"
             android:layout_height="61dp"
             android:layout_marginBottom="32dp"
-            android:background="@color/sub_color"
+            android:background="@drawable/background_button"
+            android:backgroundTint="@color/sub_color"
             android:gravity="center"
             android:text="@string/text_home_botton"
             android:textSize="18sp"

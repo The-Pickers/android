@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.databinding.BottomsheetMapLogBinding
 import gsc.ZupStar.databinding.FragmentMapBinding
 
+@AndroidEntryPoint
 class MapFragment : Fragment() {
     lateinit var binding : FragmentMapBinding
     lateinit var bottomSheetBehavior: BottomSheetBehavior<View>

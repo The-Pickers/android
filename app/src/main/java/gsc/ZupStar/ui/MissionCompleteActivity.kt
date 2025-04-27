@@ -3,8 +3,10 @@ package gsc.ZupStar.ui
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.databinding.ActivityMissionCompleteBinding
 
+@AndroidEntryPoint
 class MissionCompleteActivity : AppCompatActivity() {
     lateinit var binding: ActivityMissionCompleteBinding
     private val TAG = javaClass.simpleName

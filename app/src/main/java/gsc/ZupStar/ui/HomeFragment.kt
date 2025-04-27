@@ -14,11 +14,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import android.Manifest
-import gsc.ZupStar.R
+import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.databinding.FragmentHomeBinding
 import gsc.ZupStar.ui.MissionCompleteActivity
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     lateinit var binding : FragmentHomeBinding
 

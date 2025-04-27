@@ -1,6 +1,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.kapt")
+
+    id("kotlin-parcelize")
+
+    //kotlin("jvm") version "2.0.10"
+    kotlin("plugin.serialization") version "2.0.10"
+
+
 }
 
 android {
@@ -50,4 +59,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation("com.google.code.gson:gson:2.10.1")
+
+    implementation("com.google.dagger:hilt-android:2.56.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.56.1")
+
 }

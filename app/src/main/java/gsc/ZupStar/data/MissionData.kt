@@ -1,7 +1,10 @@
 package gsc.ZupStar.data
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class MissionData(
     @SerializedName("mission_index")
     val index : Int,
@@ -18,4 +21,4 @@ data class MissionData(
     val detectedWaste : Int,
     @SerializedName("score")
     val score : Int
-)
+) : Parcelable

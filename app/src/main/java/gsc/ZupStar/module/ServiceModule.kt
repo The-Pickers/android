@@ -17,7 +17,7 @@ object ServiceModule {
         return this.create(T::class.java)
     }
     @Provides
-    fun missionAPI(
-        missionService: MissionService
-    ) : MissionRepository = MissionRepositoryImpl(missionService)
+    fun missionApi(@NetworkModule.BaseRetrofit retrofit: Retrofit): MissionService{
+        return retrofit.buildService()
+    }
 }

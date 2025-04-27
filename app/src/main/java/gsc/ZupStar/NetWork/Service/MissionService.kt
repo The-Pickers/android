@@ -1,13 +1,32 @@
 package gsc.ZupStar.NetWork.Service
 
 import gsc.ZupStar.NetWork.Response.DefaultResponse
+import gsc.ZupStar.data.MissionData
+import gsc.ZupStar.data.VideoData
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MissionService {
     @GET("/missions")
     suspend fun getMission(
         @Header("Authorization") accessToken: String,
-    ) : Response<DefaultResponse>
+    ) : Response<DefaultResponse<MissionData>>
+
+    @POST("/missions/start")
+    suspend fun postMission(
+        @Header("Authorization") accessToken: String,
+        @Query("mission") data: VideoData
+    ) : Response<DefaultResponse<Int>>
+
+    @PATCH("/missions/complete/{mission_index}")
+    suspend fun completeMission(
+        @Header("Authorization") accessToken: String,
+        @Path("mission_index") idx : Int,
+        @Query("mission") data: VideoData
+    ) : Response<DefaultResponse<MissionData>>
 }

@@ -1,11 +1,15 @@
 package gsc.ZupStar.NetWork.Repository
 
 import gsc.ZupStar.NetWork.Response.DefaultResponse
+import gsc.ZupStar.data.MissionData
+import gsc.ZupStar.data.VideoData
 import retrofit2.Response
-import retrofit2.http.Header
+
 
 interface MissionRepository {
-    suspend fun getMission(
-        @Header("Authorization") accessToken: String,
-    ) : Response<DefaultResponse>
+    suspend fun getMission(accessToken: String) : Response<DefaultResponse<MissionData>>
+    suspend fun postMission( accessToken: String, data: VideoData) : Response<DefaultResponse<Int>>
+    suspend fun completeMission(accessToken: String, idx : Int, data: VideoData) : Response<DefaultResponse<MissionData>>
+
+
 }

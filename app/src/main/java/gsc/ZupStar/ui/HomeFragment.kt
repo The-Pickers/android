@@ -14,16 +14,23 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import android.Manifest
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
+import gsc.ZupStar.data.VideoData
 import gsc.ZupStar.databinding.FragmentHomeBinding
 import gsc.ZupStar.ui.MissionCompleteActivity
+import gsc.ZupStar.ui.MissionViewModel
+import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     lateinit var binding : FragmentHomeBinding
-
     private val TAG = javaClass.simpleName
-    private var isWorking : Boolean = false
+    private val viewModel : MissionViewModel by viewModels()
+    private var missionIdx : Int = 0
+    private var location : String = "location"
+    private var uri : Uri? = null
     companion object{
         const val REQUEST_CAMERA_PERMISSION = 100
     }
@@ -34,7 +41,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
-
+        setUpObservers()
         binding.btnStart.setOnClickListener {
             checkCameraPermissionAndLaunch()
         }
@@ -43,22 +50,41 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.btnStart.text = if (isWorking) "Complete !" else "Get Start"
+        Log.d(TAG,"fragment resume ${missionIdx}")
+        binding.btnStart.text = if (missionIdx != 0) "Complete !" else "Get Start"
     }
+
+    private fun setUpObservers(){
+        viewModel.mission.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            missionIdx = 0
+            Log.d(TAG,"fragment completed ${missionIdx}")
+            val intent = Intent(requireActivity(),MissionCompleteActivity::class.java)
+            intent.putExtra("video_uri", uri.toString())
+            intent.putExtra("result",it)
+            startActivity(intent)
+        } )
+
+        viewModel.missionIdx.observe(viewLifecycleOwner, Observer {
+            if(it == null) return@Observer
+            missionIdx = it
+            Log.d(TAG,"fragment start ${missionIdx}")
+        })
+    }
+
     private val videoCaptureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val videoUri: Uri? = result.data?.data
             if (videoUri != null) {
                 Log.d(TAG, "Captured video Uri: $videoUri")
-                if (isWorking){
-                    val intent = Intent(requireActivity(),MissionCompleteActivity::class.java)
-                    intent.putExtra("video_uri", videoUri.toString())
-                    startActivity(intent)
+                val video  = VideoData(videoUri,location, LocalDateTime.now().toString())
+                if (missionIdx != 0){
+                    uri = videoUri
+                    viewModel.completeMission(0,video)
                 }
                 else{
-                   // binding.btnStart.text="Complete !"
+                    viewModel.startMission(video)
                 }
-                isWorking = !isWorking
 
             } else {
                 Log.d(TAG, "No video Uri received.")

@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class BaseRetrofit
@@ -67,4 +67,5 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
 }

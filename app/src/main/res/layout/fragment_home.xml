@@ -7,10 +7,11 @@
 
     <TextView
         android:id="@+id/tv_comment"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.6"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="69dp"
+        android:layout_marginBottom="49dp"
         android:text="바다 거북 2마리를\n살리셨나요?"
         android:textColor="@color/white"
         android:textSize="24sp"

@@ -14,9 +14,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import android.Manifest
+import android.graphics.Color
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.data.AccountData
 import gsc.ZupStar.data.VideoData
@@ -25,6 +27,11 @@ import gsc.ZupStar.ui.HomeViewModel
 import gsc.ZupStar.ui.MissionCompleteActivity
 import gsc.ZupStar.ui.MissionViewModel
 import gsc.ZupStar.util.LocationHelper
+import gsc.ZupStar.util.StatusBarUtil
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 @AndroidEntryPoint
@@ -38,11 +45,13 @@ class HomeFragment : Fragment() {
     private var missionIdx : Int = 0
     private var location : String = "location"
     private var uri : Uri? = null
-
+    private var job: Job? = null
 
     companion object{
         const val REQUEST_CAMERA_PERMISSION = 100
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +60,7 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         setUpObservers()
+        StatusBarUtil.updateStatusBarColor(requireActivity(),Color.BLACK)
         locationHelper = LocationHelper(requireActivity(), requireContext())
 
         locationHelper.checkLocationPermission {
@@ -66,8 +76,20 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.btnStart.text = if (missionIdx != 0) "Complete !" else "Get Start"
-        homeViewModel.getComment()
         homeViewModel.getAccount()
+
+        // 주기적으로 정령 멘트 교체
+        job = viewLifecycleOwner.lifecycleScope.launch {
+            while (isActive) {
+                homeViewModel.getComment()
+                delay(10_000)  // 1분 대기
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        job?.cancel()
     }
 
     // 권한 받아오기
@@ -93,6 +115,9 @@ class HomeFragment : Fragment() {
             }
         )
     }
+
+
+
 
     private fun setUpObservers(){
         missionViewModel.mission.observe(viewLifecycleOwner, Observer {

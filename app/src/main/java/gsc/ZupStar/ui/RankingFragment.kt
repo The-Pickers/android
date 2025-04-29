@@ -1,5 +1,6 @@
 package gsc.ZupStar.sampledata
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.databinding.FragmentRankingBinding
 import gsc.ZupStar.ui.RankingRVAdapter
+import gsc.ZupStar.util.StatusBarUtil
 
 @AndroidEntryPoint
 class RankingFragment : Fragment() {
@@ -20,7 +22,7 @@ class RankingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRankingBinding.inflate(inflater,container,false)
-
+        StatusBarUtil.updateStatusBarColor(requireActivity(), Color.WHITE)
         val adapter = RankingRVAdapter(initDummy())
         binding.rvRank.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvRank.adapter = adapter

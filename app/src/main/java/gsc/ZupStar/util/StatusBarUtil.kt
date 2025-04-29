@@ -1,4 +1,4 @@
-package umc.cozymate.util
+package gsc.ZupStar.util
 
 import android.app.Activity
 import android.graphics.Color

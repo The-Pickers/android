@@ -1,5 +1,6 @@
 package gsc.ZupStar.ui.map
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import gsc.ZupStar.R
 import gsc.ZupStar.databinding.BottomsheetMapLogBinding
 import gsc.ZupStar.databinding.FragmentMapBinding
 import gsc.ZupStar.util.LocationHelper
+import gsc.ZupStar.util.StatusBarUtil
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
@@ -30,6 +32,8 @@ class MapFragment : Fragment() {
     ): View? {
         binding = FragmentMapBinding.inflate(inflater,container,false)
         setBottomSheet()
+
+        StatusBarUtil.updateStatusBarColor(requireActivity(), Color.WHITE)
 
         locationHelper = LocationHelper(requireActivity(), requireContext())
 

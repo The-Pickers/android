@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import android.Manifest
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,17 +24,22 @@ import gsc.ZupStar.databinding.FragmentHomeBinding
 import gsc.ZupStar.ui.HomeViewModel
 import gsc.ZupStar.ui.MissionCompleteActivity
 import gsc.ZupStar.ui.MissionViewModel
+import gsc.ZupStar.util.LocationHelper
 import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     lateinit var binding : FragmentHomeBinding
+    lateinit var locationHelper: LocationHelper
+
     private val TAG = javaClass.simpleName
     private val missionViewModel : MissionViewModel by viewModels()
     private val homeViewModel : HomeViewModel by viewModels()
     private var missionIdx : Int = 0
     private var location : String = "location"
     private var uri : Uri? = null
+
+
     companion object{
         const val REQUEST_CAMERA_PERMISSION = 100
     }
@@ -45,6 +51,12 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         setUpObservers()
+        locationHelper = LocationHelper(requireActivity(), requireContext())
+
+        locationHelper.checkLocationPermission {
+            fetchLocation()
+        }
+
         binding.btnStart.setOnClickListener {
             checkCameraPermissionAndLaunch()
         }
@@ -56,6 +68,30 @@ class HomeFragment : Fragment() {
         binding.btnStart.text = if (missionIdx != 0) "Complete !" else "Get Start"
         homeViewModel.getComment()
         homeViewModel.getAccount()
+    }
+
+    // 권한 받아오기
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                dispatchTakeVideoIntent()
+            } else {
+                Log.d(TAG, "Camera permission denied")
+            }
+        }
+        locationHelper.handlePermissionResult(
+            requestCode,
+            grantResults,
+            onPermissionGranted = { fetchLocation() },
+            onPermissionDenied = {
+                Toast.makeText(context, "위치 권한이 필요합니다.", Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 
     private fun setUpObservers(){
@@ -92,6 +128,7 @@ class HomeFragment : Fragment() {
         binding.tvCo2.text = data.carbonReduction.toString()
     }
 
+    // 카메라런쳐
     private val videoCaptureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val videoUri: Uri? = result.data?.data
@@ -129,20 +166,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CAMERA_PERMISSION) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                dispatchTakeVideoIntent()
-            } else {
-                Log.d(TAG, "Camera permission denied")
+    // 위치 정보 받아오기
+    private fun fetchLocation() {
+        locationHelper.getCurrentLocation { location ->
+            location?.let {
+                val adminArea = locationHelper.getAdminArea(it)
+                Log.d(TAG, location.toString())
+                Log.d(TAG, "현재 도/특별시/광역시는: $adminArea")
+            } ?: run {
+                Log.d(TAG, "위치를 가져올 수 없습니다.")
             }
         }
+    }
 
-
-}
 }

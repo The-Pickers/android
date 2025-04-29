@@ -10,7 +10,6 @@ class MissionLogRVAdapter(private val itemList : List<String>) : RecyclerView.Ad
     inner class ViewHolder (val binding: RvItemMapLogBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(pos: Int){
             binding.tvTitle.text = itemList[pos]
-            Log.d("test" ,"item created ${pos}")
         }
     }
 

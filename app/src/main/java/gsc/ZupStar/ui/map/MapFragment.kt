@@ -1,9 +1,11 @@
 package gsc.ZupStar.ui.map
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -11,11 +13,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.databinding.BottomsheetMapLogBinding
 import gsc.ZupStar.databinding.FragmentMapBinding
+import gsc.ZupStar.util.LocationHelper
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
     lateinit var binding : FragmentMapBinding
     lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    lateinit var locationHelper: LocationHelper
+
+    private val TAG = javaClass.simpleName
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +31,19 @@ class MapFragment : Fragment() {
         binding = FragmentMapBinding.inflate(inflater,container,false)
         setBottomSheet()
 
+        locationHelper = LocationHelper(requireActivity(), requireContext())
+
+        locationHelper.checkLocationPermission {
+            fetchLocation()
+        }
+
         return binding.root
+    }
+    private fun initDummy (): ArrayList<String> {
+        val dummy = ArrayList<String>()
+        for(i in 1..5)
+            dummy.add("dummy log ${i}")
+        return dummy
     }
 
     private fun setBottomSheet(){
@@ -59,15 +77,41 @@ class MapFragment : Fragment() {
         bottomSheetBinding.rvMapLog.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
     }
+
+
+
+
+    private fun fetchLocation() {
+        locationHelper.getCurrentLocation { location ->
+            location?.let {
+                val adminArea = locationHelper.getAdminArea(it)
+                Log.d(TAG, location.toString())
+                Log.d(TAG, "현재 도/특별시/광역시는: $adminArea")
+            } ?: run {
+                Log.d(TAG, "위치를 가져올 수 없습니다.")
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        locationHelper.handlePermissionResult(
+            requestCode,
+            grantResults,
+            onPermissionGranted = { fetchLocation() },
+            onPermissionDenied = {
+                Toast.makeText(context, "위치 권한이 필요합니다.", Toast.LENGTH_SHORT).show()
+            }
+        )
+    }
+
     fun dpToPx(dp: Int): Int {
         val scale = resources.displayMetrics.density
         return (dp * scale + 0.5f).toInt()
-    }
-
-    private fun initDummy (): ArrayList<String> {
-        val dummy = ArrayList<String>()
-        for(i in 1..5)
-            dummy.add("dummy log ${i}")
-        return dummy
     }
 }

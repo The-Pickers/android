@@ -73,8 +73,11 @@ dependencies {
     // OkHttp Logging Interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
-// Retrofit Scalars Converter
+    // Retrofit Scalars Converter
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+
+    // google location service
+    implementation ("com.google.android.gms:play-services-location:21.2.0")
 
 
 

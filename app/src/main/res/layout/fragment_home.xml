@@ -46,7 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mission"
-                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
                 />
 
@@ -83,7 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Points"
-                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textAppearance="@style/TextAppearance.App.Pretendard.Basic" />
 
             <View
@@ -119,7 +121,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CO2\nReduced"
-                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textAppearance="@style/TextAppearance.App.Pretendard.Basic" />
 
             <View

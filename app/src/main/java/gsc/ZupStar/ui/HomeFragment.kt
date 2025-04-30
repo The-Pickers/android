@@ -14,13 +14,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import android.Manifest
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.hardware.Camera
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.data.AccountData
+import gsc.ZupStar.data.ImageData
 import gsc.ZupStar.data.MapData
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.data.VideoData
@@ -120,7 +123,7 @@ class HomeFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                dispatchTakeVideoIntent()
+                dispatchTakePhotoIntent()
             } else {
                 Log.d(TAG, "Camera permission denied")
             }
@@ -173,37 +176,43 @@ class HomeFragment : Fragment() {
     }
 
     // 카메라런쳐
-    private val videoCaptureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    // 카메라 런처 (사진 촬영용으로 수정됨)
+    private val photoCaptureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val videoUri: Uri? = result.data?.data
-            if (videoUri != null) {
-                Log.d(TAG, "Captured video Uri: $videoUri")
-                val video  = VideoData(videoUri,curlocation, LocalDateTime.now().toString())
-                if (missionIdx != 0){
-                    uri = videoUri
-                    missionViewModel.completeMission(video)
-                }
-                else{
-                    missionViewModel.startMission(video)
-                }
+            val bitmap = result.data?.extras?.get("data") as? Bitmap
+            if (bitmap != null) {
+                Log.d(TAG, "Captured image bitmap: $bitmap")
 
+                val imageData = ImageData(bitmap, curlocation, LocalDateTime.now().toString())
+
+                if (missionIdx != 0) {
+                    missionViewModel.completeMission(imageData, missionIdx)
+                } else {
+                    missionViewModel.startMission()
+                }
             } else {
-                Log.d(TAG, "No video Uri received.")
+                Log.d(TAG, "No bitmap image received.")
             }
         } else {
-            Log.d(TAG, "Video capture cancelled or failed.")
+            Log.d(TAG, "Image capture cancelled or failed.")
         }
     }
 
-    fun dispatchTakeVideoIntent() {
-        val takeVideoIntent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
-        videoCaptureLauncher.launch(takeVideoIntent)
+    private fun dispatchTakePhotoIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        // 후면 카메라 요청 (제조사별 대응)
+        takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", Camera.CameraInfo.CAMERA_FACING_BACK)
+        takePictureIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", false)
+        takePictureIntent.putExtra("android.intent.extra.USE_FRONT_CAMERA", false)
+
+        photoCaptureLauncher.launch(takePictureIntent)
     }
 
     private fun checkCameraPermissionAndLaunch() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             // 권한 이미 허용됨 → 바로 카메라 실행
-            dispatchTakeVideoIntent()
+            dispatchTakePhotoIntent()
         } else {
             // 권한 요청
             requestPermissions(arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_PERMISSION)

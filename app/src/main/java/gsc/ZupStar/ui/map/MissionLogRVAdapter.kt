@@ -2,17 +2,17 @@ package gsc.ZupStar.ui.map
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.databinding.RvItemMapLogBinding
 import gsc.ZupStar.util.DateUtils
-import java.time.LocalDateTime
 
-class MissionLogRVAdapter(private val itemList: ArrayList<MissionData>) : RecyclerView.Adapter<MissionLogRVAdapter.ViewHolder>() {
+class MissionLogRVAdapter(private val itemList: List<MissionData>) : RecyclerView.Adapter<MissionLogRVAdapter.ViewHolder>() {
     inner class ViewHolder (val binding: RvItemMapLogBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(pos: Int){
             binding.tvTitle.text = itemList[pos].title
-            binding.tvDate.text = DateUtils.formatLocalDate(itemList[pos].startTime,pos+1*(pos+2))
+            binding.tvDate.text = DateUtils.formatLocalDate(itemList[pos].startTime,0)
             binding.tvScore.text ="+${itemList[pos].score} pts"
         }
     }

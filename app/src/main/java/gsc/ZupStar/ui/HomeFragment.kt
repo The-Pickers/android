@@ -87,10 +87,8 @@ class HomeFragment : Fragment() {
         binding.tvMission.text = count.toString()
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.btnStart.text = if (missionIdx != 0) "Complete !" else "Get Start"
-        homeViewModel.getAccount()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initInfo()
         // 주기적으로 정령 멘트 교체
         job = viewLifecycleOwner.lifecycleScope.launch {
@@ -101,8 +99,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onResume() {
+        super.onResume()
+        binding.btnStart.text = if (missionIdx != 0) "Complete !" else "Get Start"
+        //homeViewModel.getAccount()
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         job?.cancel()
     }
 

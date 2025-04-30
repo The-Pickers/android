@@ -1,5 +1,6 @@
 package gsc.ZupStar.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -15,10 +16,49 @@ import java.time.LocalDateTime
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
+    lateinit var spf : SharedPreferences
 
     companion object{
         const val REQUEST_CAMERA_PERMISSION = 100
-        val misionLogList = ArrayList<MissionData>()
+        val dummy = listOf<MissionData>(
+            MissionData(
+                index = 999,
+                title = "Mission Title ",
+                message = "Mission Data ",
+                completed = true,
+                carbonReduction = 0.5f,
+                detectedWaste = 0,
+                score = 25,
+                takenTime = "",
+                startTime = LocalDateTime.now().minusDays(17).toString(),
+                location = 7
+            ),
+            MissionData(
+                index = 998,
+                title = "Mission Title ",
+                message = "Mission Data ",
+                completed = true,
+                carbonReduction = 0.5f,
+                detectedWaste = 0,
+                score = 45,
+                takenTime = "",
+                startTime = LocalDateTime.now().minusDays(11).toString(),
+                location = 5
+            ),
+            MissionData(
+                index = 997,
+                title = "Mission Title ",
+                message = "Mission Data ",
+                completed = true,
+                carbonReduction = 0.5f,
+                detectedWaste = 0,
+                score = 10,
+                takenTime = "",
+                startTime = LocalDateTime.now().minusDays(4).toString(),
+                location = 2
+            )
+        )
+        val misionLogList = ArrayList<MissionData>(dummy)
 
     }
 
@@ -31,16 +71,15 @@ class MainActivity : AppCompatActivity() {
         val bottomNav : BottomNavigationView = binding.navBottom
         val navController = findNavController(R.id.nav_host_fragment)
         bottomNav.setupWithNavController(navController)
-        initDummy()
 
         val targetId = intent.getIntExtra("targetFragmentId", -1)
         val currentId = navController.currentDestination?.id
 
         if (targetId != -1 && currentId != targetId) {
-            navController.navigate(targetId)
+            bottomNav.selectedItemId = targetId // ✅ 이것만으로 충분
         }
 
-        onBackPressedDispatcher.addCallback(this){
+        onBackPressedDispatcher.addCallback(this) {
             if (navController.currentDestination?.id != R.id.navigation_home) {
                 navController.popBackStack(R.id.navigation_home, false)
                 bottomNav.selectedItemId = R.id.navigation_home
@@ -49,28 +88,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onResume() {
         super.onResume()
 
     }
 
-    private fun initDummy () {
-        for(i in 1..5){
-            misionLogList.add(
-                MissionData(
-                    index = i,
-                    title = "Mission Title ${i}",
-                    message = "Mission Data ${i}",
-                    completed = true,
-                    carbonReduction = 0.5f,
-                    detectedWaste = 0,
-                    score = (i%4)*25,
-                    takenTime = "",
-                    startTime = LocalDateTime.now().toString(),
-                    location = i%9
-                )
-            )
-        }
+    override fun onDestroy() {
+        super.onDestroy()
     }
+
 
 }

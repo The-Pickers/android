@@ -23,10 +23,8 @@ import gsc.ZupStar.databinding.BottomsheetMapLogBinding
 import gsc.ZupStar.databinding.FragmentMapBinding
 import gsc.ZupStar.ui.MainActivity.Companion.misionLogList
 import gsc.ZupStar.ui.MissionCompleteActivity.Companion.complete_mission_loc
-import gsc.ZupStar.util.DateUtils
 import gsc.ZupStar.util.LocationHelper
 import gsc.ZupStar.util.StatusBarUtil
-import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
@@ -110,7 +108,7 @@ class MapFragment : Fragment() {
         })
 
         // RecyclerView 설정
-        val adapter = MissionLogRVAdapter(misionLogList)
+        val adapter = MissionLogRVAdapter(misionLogList.reversed())
         bottomSheetBinding.rvMapLog.adapter = adapter
         bottomSheetBinding.rvMapLog.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
@@ -162,7 +160,7 @@ class MapFragment : Fragment() {
         val toColor = ContextCompat.getColor(view.context, toColorRes)
 
         val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), fromColor, toColor)
-        colorAnimator.duration = 700L  // 애니메이션 지속 시간 (ms)
+        colorAnimator.duration = 1000L  // 애니메이션 지속 시간 (ms)
 
         colorAnimator.addUpdateListener { animator ->
             val animatedColor = animator.animatedValue as Int

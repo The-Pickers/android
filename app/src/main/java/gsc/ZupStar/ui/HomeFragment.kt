@@ -22,6 +22,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import gsc.ZupStar.R
 import gsc.ZupStar.data.AccountData
 import gsc.ZupStar.data.ImageData
 import gsc.ZupStar.data.MapData
@@ -62,8 +63,7 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         setUpObservers()
-
-        StatusBarUtil.updateStatusBarColor(requireActivity(),Color.BLACK)
+        StatusBarUtil.updateStatusBarColor(requireActivity(), ContextCompat.getColor(requireContext(), R.color.home))
         locationHelper = LocationHelper(requireActivity(), requireContext())
         locationHelper.checkLocationPermission {
             fetchLocation()
@@ -187,8 +187,6 @@ class HomeFragment : Fragment() {
 
                 if (missionIdx != 0) {
                     missionViewModel.completeMission(imageData, missionIdx)
-                } else {
-                    missionViewModel.startMission()
                 }
             } else {
                 Log.d(TAG, "No bitmap image received.")
@@ -199,14 +197,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun dispatchTakePhotoIntent() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (missionIdx == 0) {
+            missionViewModel.startMission()
+            binding.btnStart.text =  "Complete !"
+        }
+        else{
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            // 후면 카메라 요청 (제조사별 대응)
+            takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", Camera.CameraInfo.CAMERA_FACING_BACK)
+            takePictureIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", false)
+            takePictureIntent.putExtra("android.intent.extra.USE_FRONT_CAMERA", false)
 
-        // 후면 카메라 요청 (제조사별 대응)
-        takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", Camera.CameraInfo.CAMERA_FACING_BACK)
-        takePictureIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", false)
-        takePictureIntent.putExtra("android.intent.extra.USE_FRONT_CAMERA", false)
-
-        photoCaptureLauncher.launch(takePictureIntent)
+            photoCaptureLauncher.launch(takePictureIntent)
+        }
     }
 
     private fun checkCameraPermissionAndLaunch() {

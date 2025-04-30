@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/sub_color">
+    android:background="@color/mission">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="403dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/background_box_16"
         android:layout_marginHorizontal="20dp"
         android:padding="20dp"
@@ -16,6 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
+            android:id="@+id/iv_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_check"
@@ -27,11 +28,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mission Complete!"
-            android:textSize="24sp"
+            android:textSize="26sp"
+            android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
-            android:layout_marginBottom="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_check"
             app:layout_constraintBottom_toTopOf="@id/tv_comment"/>
 
         <TextView
@@ -39,11 +43,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ment\nmennt"
-            android:textSize="16sp"
+            android:textSize="20sp"
+            android:textColor="@color/text_basic"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
             android:gravity="center"
             android:layout_marginHorizontal="12dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="30dp"
             app:layout_constraintBottom_toTopOf="@id/tv_time"/>
 
 
@@ -52,7 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+150 pts"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            android:textColor="@color/text_basic"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="12dp"
@@ -63,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Points Earned"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textColor="@color/text_basic"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
             android:layout_marginBottom="20dp"
@@ -76,7 +82,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Seoul"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
             android:layout_marginBottom="14dp"
             android:layout_marginEnd="12dp"
@@ -87,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Place"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textColor="@color/text_basic"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
             android:layout_marginBottom="14dp"
@@ -100,7 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2 hours 30 mins"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
             android:layout_marginBottom="14dp"
             android:layout_marginEnd="12dp"
@@ -111,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textColor="@color/text_basic"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
             android:layout_marginBottom="14dp"
@@ -123,7 +131,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_complete"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:text="Complete"
             android:textColor="@color/white"
             android:background="@drawable/background_button"

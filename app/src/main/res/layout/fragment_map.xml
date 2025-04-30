@@ -12,17 +12,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/tv_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cleanup Map"
         android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
         android:textSize="32sp"
-        android:textColor="@color/main_color"
-        android:layout_marginStart="24dp"
+        android:textColor="@color/btn_color"
+        android:paddingStart="24dp"
         android:layout_marginTop="13dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/line_1"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_header"/>
     <ImageView
         android:id="@+id/iv_background_map"
         android:layout_width="300dp"
@@ -60,7 +69,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/item_map_2"
         android:translationX="-54dp"
-
         app:layout_constraintStart_toEndOf="@id/iv_map_1"
         app:layout_constraintTop_toTopOf="@id/iv_background_map" />
 
@@ -72,8 +80,7 @@
         android:layout_marginStart="32dp"
         android:translationY="-18dp"
         app:layout_constraintStart_toStartOf="@id/iv_background_map"
-        app:layout_constraintTop_toBottomOf="@id/iv_map_1"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_map_1" />
 
     <ImageView
         android:id="@+id/iv_map_4"
@@ -83,8 +90,7 @@
         android:translationY="-34dp"
         android:translationX="-20dp"
         app:layout_constraintStart_toEndOf="@id/iv_map_3"
-        app:layout_constraintTop_toBottomOf="@id/iv_map_1"
-   android:visibility="gone"  />
+        app:layout_constraintTop_toBottomOf="@id/iv_map_1" />
 
 
     <ImageView
@@ -116,8 +122,7 @@
         android:layout_marginStart="22dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintStart_toStartOf="@id/iv_background_map"
-        app:layout_constraintBottom_toBottomOf="@id/iv_background_map"
-        android:visibility="visible"/>
+        app:layout_constraintBottom_toBottomOf="@id/iv_background_map" />
 
     <ImageView
         android:id="@+id/iv_map_8"
@@ -127,8 +132,7 @@
         android:layout_marginStart="54dp"
         android:translationY="-36dp"
         app:layout_constraintStart_toStartOf="@id/iv_background_map"
-        app:layout_constraintTop_toBottomOf="@id/iv_map_3"
-        android:visibility="visible"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_map_3" />
 
     <ImageView
         android:id="@+id/iv_map_9"
@@ -138,8 +142,7 @@
         android:layout_marginStart="34dp"
         android:translationY="-18dp"
         app:layout_constraintStart_toStartOf="@id/iv_background_map"
-        app:layout_constraintTop_toBottomOf="@id/iv_background_map"
-        android:visibility="visible"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_background_map" />
 
     <ImageView
         android:layout_width="wrap_content"

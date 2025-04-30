@@ -15,7 +15,7 @@ object dummyComment {
     )
 
     private val commentList = listOf<String>(
-        "Your actions are helping whales sing their songs for generations to come! \uD83D\uDC33\uD83C\uDFB6\n",
+        "Your actions are helping whales sing their songs for generations to come! \uD83D\uDC33\uD83C\uDFB6",
         "Your efforts are helping the great forest breathe a little easier \uD83C\uDF33\uD83C\uDF33",
         "You're making waves for sea turtle conservation! \uD83D\uDC22\uD83C\uDF0A",
         "Your love for trees is helping our planet breathe easier \uD83C\uDF33!",

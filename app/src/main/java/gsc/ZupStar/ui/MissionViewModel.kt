@@ -60,7 +60,7 @@ class MissionViewModel @Inject constructor(
             //_mission.value = result.body()!!.data
             Log.d(TAG,"complete mission ${data}")
             val time = DateUtils.formatDuration(startTime, LocalDateTime.now())
-
+            val score = if (idx %2 == 0) 10 else 25
             val dummy = MissionData(
                 idx,
                 startTime = startTime.toString(),
@@ -68,9 +68,9 @@ class MissionViewModel @Inject constructor(
                 title = "title",
                 completed = true,
                 carbonReduction = 1.0f,
-                message = dummyComment.getComplete(idx),
+                message = dummyComment.getComplete(idx%10),
                 detectedWaste = 2,
-                score = (idx/2)*10 + 5,
+                score = score,
                 location = LocationUtil.toIndex(data.location_name)!!
             )
             _mission.value = dummy

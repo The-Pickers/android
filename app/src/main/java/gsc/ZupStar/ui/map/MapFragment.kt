@@ -34,7 +34,21 @@ class MapFragment : Fragment() {
     lateinit var mapViews: List<ImageView>
     private val TAG = javaClass.simpleName
 
-    private val mapDataList = ArrayList<MapData>()
+    companion object{
+        val dummy = listOf<MapData>(
+            MapData(0, 0),
+            MapData(1, 0),
+            MapData(2, 6),
+            MapData(3, 0),
+            MapData(4, 0),
+            MapData(5, 4),
+            MapData(6, 3),
+            MapData(7, 0),
+            MapData(8, 1)
+        )
+        private val mapDataList = ArrayList<MapData>(dummy)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,9 +59,7 @@ class MapFragment : Fragment() {
         StatusBarUtil.updateStatusBarColor(requireActivity(), Color.WHITE)
         setBottomSheet()
         mapViews = listOf( binding.ivMap1,binding.ivMap2,binding.ivMap3,binding.ivMap4,binding.ivMap5,binding.ivMap6,binding.ivMap7, binding.ivMap8, binding.ivMap9)
-        initDummy()
 
-        for (data in mapDataList) mapViews[data.location].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
 
         locationHelper = LocationHelper(requireActivity(), requireContext())
         locationHelper.checkLocationPermission {
@@ -59,6 +71,7 @@ class MapFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        for (data in mapDataList) mapViews[data.location].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
         if (complete_mission_loc >=0 ){
             val loc = complete_mission_loc
             complete_mission_loc = -1
@@ -75,12 +88,7 @@ class MapFragment : Fragment() {
             animateColorFilter(mapViews[loc], curColor, newColor)
     }
 
-    private fun initDummy () {
-        for(i in 0..mapViews.size-1){
-            if (i%3 == 0) mapDataList.add(MapData(i , 0))
-            else  mapDataList.add(MapData(i , (i+4) % 7))
-        }
-    }
+
 
     private fun setBottomSheet(){
         // 바텀시트 바인딩 가져오기

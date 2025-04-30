@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.data.MissionData
@@ -27,7 +28,7 @@ class MissionCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMissionCompleteBinding.inflate(layoutInflater)
-        StatusBarUtil.updateStatusBarColor(this, Color.WHITE)
+        StatusBarUtil.updateStatusBarColor(this, ContextCompat.getColor(this, R.color.mission))
         setContentView(binding.root)
 
 

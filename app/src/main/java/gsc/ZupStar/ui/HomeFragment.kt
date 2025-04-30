@@ -38,7 +38,6 @@ import java.time.LocalDateTime
 class HomeFragment : Fragment() {
     lateinit var binding : FragmentHomeBinding
     lateinit var locationHelper: LocationHelper
-
     private val TAG = javaClass.simpleName
     private val missionViewModel : MissionViewModel by viewModels()
     private val homeViewModel : HomeViewModel by viewModels()

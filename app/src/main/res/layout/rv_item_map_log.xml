@@ -39,6 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
+        android:id="@+id/tv_score"
         android:layout_width="74dp"
         android:layout_height="28dp"
         android:background="@drawable/background_point"

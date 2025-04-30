@@ -41,6 +41,160 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <ImageView
+        android:id="@+id/iv_map_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_1"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="@id/iv_background_map"
+        app:layout_constraintTop_toTopOf="@id/iv_background_map" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_1_line"
+        android:translationZ="2dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="@id/iv_background_map"
+        app:layout_constraintTop_toTopOf="@id/iv_background_map" />
+
+    <ImageView
+        android:id="@+id/iv_map_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_2"
+        android:translationX="-47dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/iv_map_1"
+        app:layout_constraintTop_toTopOf="@id/iv_background_map"
+        app:tint="@color/main_color" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="2dp"
+        android:src="@drawable/item_map_2_line"
+        android:translationX="-47dp"
+        app:layout_constraintStart_toStartOf="@id/iv_map_2"
+        app:layout_constraintTop_toTopOf="@id/iv_map_2" />
+
+    <ImageView
+        android:id="@+id/iv_map_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_3"
+        android:layout_marginStart="24dp"
+        android:translationY="-18dp"
+        app:layout_constraintStart_toStartOf="@id/iv_background_map"
+        app:layout_constraintTop_toBottomOf="@id/iv_map_1"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_3_line"
+        android:layout_marginStart="24dp"
+        android:translationY="-18dp"
+        app:layout_constraintStart_toStartOf="@id/iv_background_map"
+        app:layout_constraintTop_toBottomOf="@id/iv_map_1"/>
+
+    <ImageView
+        android:id="@+id/iv_map_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_4"
+        app:layout_constraintEnd_toStartOf="@id/iv_map_6"
+        app:layout_constraintStart_toEndOf="@id/iv_map_3"
+        app:layout_constraintTop_toBottomOf="@id/iv_map_1"
+        app:layout_constraintBottom_toTopOf="@id/iv_map_5"
+        android:visibility="gone"/>
+
+
+    <ImageView
+        android:id="@+id/iv_map_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_6"
+        android:layout_marginEnd="16dp"
+        android:translationY="-30dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_background_map"
+        app:layout_constraintTop_toBottomOf="@id/iv_map_1"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_6_line"
+        android:layout_marginEnd="16dp"
+        android:translationY="-30dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_background_map"
+        app:layout_constraintTop_toBottomOf="@id/iv_map_1"/>
+
+    <ImageView
+        android:id="@+id/iv_map_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_5"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="114dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_background_map"
+        app:layout_constraintBottom_toBottomOf="@id/iv_background_map"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_5_line"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="114dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_background_map"
+        app:layout_constraintBottom_toBottomOf="@id/iv_background_map"/>
+
+    <ImageView
+        android:id="@+id/iv_map_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_5"
+        app:layout_constraintStart_toStartOf="@id/iv_background_map"
+        app:layout_constraintBottom_toTopOf="@id/iv_map_9"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/iv_map_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_8"
+        android:layout_marginStart="42dp"
+        android:translationY="-32dp"
+        app:layout_constraintStart_toStartOf="@id/iv_background_map"
+        app:layout_constraintTop_toBottomOf="@id/iv_map_3" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_8_line"
+        android:layout_marginStart="42dp"
+        android:translationY="-32dp"
+        app:layout_constraintStart_toStartOf="@id/iv_background_map"
+        app:layout_constraintTop_toBottomOf="@id/iv_map_3" />
+    <ImageView
+        android:id="@+id/iv_map_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_map_3"
+        app:layout_constraintStart_toStartOf="@id/iv_background_map"
+        app:layout_constraintBottom_toBottomOf="@id/iv_background_map"
+        android:visibility="invisible"/>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_map_2_line"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/background_map_2"-->
+<!--        android:layout_marginStart="43dp"-->
+<!--        android:translationY="-16dp"-->
+<!--        android:translationZ="2dp"-->
+<!--        app:layout_constraintVertical_chainStyle="packed"-->
+<!--        app:layout_constraintStart_toStartOf="@id/iv_background_map"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/iv_map_1"-->
+<!--        />-->
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
     <include layout="@layout/bottomsheet_map_log" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

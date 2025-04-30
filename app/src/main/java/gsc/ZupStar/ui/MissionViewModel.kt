@@ -9,7 +9,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import gsc.ZupStar.NetWork.Repository.MissionRepository
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.data.VideoData
+import gsc.ZupStar.util.DateUtils
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import java.time.LocalTime
 import javax.inject.Inject
 
@@ -27,6 +29,8 @@ class MissionViewModel @Inject constructor(
     private val _missionIdx = MutableLiveData<Int>()
     val missionIdx : LiveData<Int> get() = _missionIdx
 
+    private var pos : Int = 0
+    private lateinit var startTime : LocalDateTime
 
     fun getMission(){
         viewModelScope.launch {
@@ -39,8 +43,8 @@ class MissionViewModel @Inject constructor(
         viewModelScope.launch {
             //val result = missionRepository.postMission( token, data)
             //_mission_idx.value = result.body()!!.data
-
-            _missionIdx.value = 1
+            startTime = LocalDateTime.now()
+            _missionIdx.value = ++pos
             Log.d(TAG,"start mission ${_missionIdx.value}")
         }
     }
@@ -50,10 +54,13 @@ class MissionViewModel @Inject constructor(
             //val result = missionRepository.completeMission(token,idx, data)
             //_mission.value = result.body()!!.data
             Log.d(TAG,"complete mission")
-            val time = LocalTime.now()
+            val time = DateUtils.formatDuration(startTime, LocalDateTime.now())
+
             val dummy = MissionData(
                 missionIdx.value!!,
-                time.toString(),
+                startTime = startTime.toString(),
+                takenTime = time,
+                title = "title",
                 completed = true,
                 carbonReduction = 1.0f,
                 message = "Wow",

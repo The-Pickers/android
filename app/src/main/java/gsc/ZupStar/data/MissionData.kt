@@ -8,9 +8,13 @@ import kotlinx.parcelize.Parcelize
 data class MissionData(
     @SerializedName("mission_index")
     val index : Int,
+    @SerializedName("mission_title")
+    val title: String,
     // HH:mm:ss
     @SerializedName("mission_time")
-    val time : String,
+    var takenTime : String = "00:00:00",
+    @SerializedName("mission_start_time")
+    val startTime :String,
     @SerializedName("completed")
     val completed : Boolean,
     @SerializedName("carbon_reduction")

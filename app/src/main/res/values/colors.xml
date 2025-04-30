@@ -14,8 +14,12 @@
     <color name="text_highlight">#065F46</color>
     <color name="text_main">#36895F</color>
     <color name="text_basic">#4B5563</color>
-    <color name="map_line">#DA3957</color>
+    <color name="map_line">#000000</color>
 
     <color name="transparent">#00FFFFFF</color>
-
+    <color name="map_0">#ffffff</color>
+    <color name="map_1">#afeeee</color>
+    <color name="map_2">#b0e0e6</color>
+    <color name="map_3">#add8e6</color>
+    <color name="map_4">#87ceeb</color>
 </resources>

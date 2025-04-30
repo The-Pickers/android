@@ -19,9 +19,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.data.MapData
-import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.databinding.BottomsheetMapLogBinding
 import gsc.ZupStar.databinding.FragmentMapBinding
+import gsc.ZupStar.ui.MainActivity.Companion.misionLogList
 import gsc.ZupStar.ui.MissionCompleteActivity.Companion.complete_mission_loc
 import gsc.ZupStar.util.DateUtils
 import gsc.ZupStar.util.LocationHelper
@@ -34,9 +34,8 @@ class MapFragment : Fragment() {
     lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     lateinit var locationHelper: LocationHelper
     lateinit var mapViews: List<ImageView>
-
     private val TAG = javaClass.simpleName
-    private val misionLogList = ArrayList<MissionData>()
+
     private val mapDataList = ArrayList<MapData>()
 
     override fun onCreateView(
@@ -79,23 +78,6 @@ class MapFragment : Fragment() {
     }
 
     private fun initDummy () {
-        for(i in 1..5){
-            misionLogList.add(
-                MissionData(
-                    index = i,
-                    title = "Mission Title ${i}",
-                    message = "Mission Data ${i}",
-                    completed = true,
-                    carbonReduction = 0.5f,
-                    detectedWaste = 0,
-                    score = i*125,
-                    takenTime = "",
-                    startTime = LocalDateTime.now().toString(),
-                    location = i%9
-                )
-            )
-        }
-
         for(i in 0..mapViews.size-1){
             if (i%3 == 0) mapDataList.add(MapData(i , 0))
             else  mapDataList.add(MapData(i , (i+4) % 7))
@@ -164,7 +146,7 @@ class MapFragment : Fragment() {
     }
 
     private fun getColor(info : MapData) : Int{
-        val colorList = listOf(R.color.white,R.color.purple_200, R.color.purple_500, R.color.purple_700, R.color.main_color)
+        val colorList = listOf(R.color.map_0,R.color.map_1, R.color.map_2, R.color.map_3, R.color.map_4)
         val color = when(info.mission){
             0 ->colorList[0]
             1 ->  colorList[1]
@@ -180,7 +162,7 @@ class MapFragment : Fragment() {
         val toColor = ContextCompat.getColor(view.context, toColorRes)
 
         val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), fromColor, toColor)
-        colorAnimator.duration = 500L  // 애니메이션 지속 시간 (ms)
+        colorAnimator.duration = 700L  // 애니메이션 지속 시간 (ms)
 
         colorAnimator.addUpdateListener { animator ->
             val animatedColor = animator.animatedValue as Int

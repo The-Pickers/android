@@ -30,7 +30,7 @@ class MissionViewModel @Inject constructor(
     private val _missionIdx = MutableLiveData<Int>()
     val missionIdx : LiveData<Int> get() = _missionIdx
 
-    private var pos : Int = 0
+    private var pos : Int = 100
     private lateinit var startTime : LocalDateTime
 
     fun getMission(){

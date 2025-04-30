@@ -21,9 +21,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.data.AccountData
+import gsc.ZupStar.data.MapData
+import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.data.VideoData
 import gsc.ZupStar.databinding.FragmentHomeBinding
 import gsc.ZupStar.ui.HomeViewModel
+import gsc.ZupStar.ui.MainActivity.Companion.REQUEST_CAMERA_PERMISSION
+import gsc.ZupStar.ui.MainActivity.Companion.misionLogList
 import gsc.ZupStar.ui.MissionCompleteActivity
 import gsc.ZupStar.ui.MissionViewModel
 import gsc.ZupStar.util.LocationHelper
@@ -46,10 +50,6 @@ class HomeFragment : Fragment() {
     private var uri : Uri? = null
     private var job: Job? = null
 
-    companion object{
-        const val REQUEST_CAMERA_PERMISSION = 100
-    }
-
 
 
     override fun onCreateView(
@@ -59,9 +59,9 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         setUpObservers()
+
         StatusBarUtil.updateStatusBarColor(requireActivity(),Color.BLACK)
         locationHelper = LocationHelper(requireActivity(), requireContext())
-
         locationHelper.checkLocationPermission {
             fetchLocation()
         }
@@ -69,14 +69,29 @@ class HomeFragment : Fragment() {
         binding.btnStart.setOnClickListener {
             checkCameraPermissionAndLaunch()
         }
+
         return binding.root
+    }
+
+    private fun initInfo() {
+        var points : Int = 0
+        var count : Int = 0
+        var co2 : Float = 0f
+        for (data in misionLogList){
+            points +=data.score
+            co2 += data.carbonReduction
+            count++
+        }
+        binding.tvPoint.text = "+${points}"
+        binding.tvCo2.text = co2.toString()
+        binding.tvMission.text = count.toString()
     }
 
     override fun onResume() {
         super.onResume()
         binding.btnStart.text = if (missionIdx != 0) "Complete !" else "Get Start"
         homeViewModel.getAccount()
-
+        initInfo()
         // 주기적으로 정령 멘트 교체
         job = viewLifecycleOwner.lifecycleScope.launch {
             while (isActive) {
@@ -123,6 +138,7 @@ class HomeFragment : Fragment() {
             if (it == null) return@Observer
             missionIdx = 0
             Log.d(TAG,"fragment completed ${missionIdx}")
+            misionLogList.add(it)
             val intent = Intent(requireActivity(),MissionCompleteActivity::class.java)
             intent.putExtra("video_uri", uri.toString())
             intent.putExtra("result",it)
@@ -132,7 +148,6 @@ class HomeFragment : Fragment() {
         missionViewModel.missionIdx.observe(viewLifecycleOwner, Observer {
             if(it == null) return@Observer
             missionIdx = it
-            Log.d(TAG,"fragment start ${missionIdx}")
         })
 
         homeViewModel.comment.observe(viewLifecycleOwner, Observer {

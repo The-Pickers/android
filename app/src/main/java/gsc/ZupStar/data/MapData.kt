@@ -6,5 +6,5 @@ data class MapData(
     @SerializedName("location_index")
     val location : Int,
     @SerializedName("mission_count")
-    val mission : Int
+    var mission : Int
 )

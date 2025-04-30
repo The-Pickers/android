@@ -1,5 +1,7 @@
 package gsc.ZupStar.ui.map
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -9,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +22,7 @@ import gsc.ZupStar.data.MapData
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.databinding.BottomsheetMapLogBinding
 import gsc.ZupStar.databinding.FragmentMapBinding
+import gsc.ZupStar.ui.MissionCompleteActivity.Companion.complete_mission_loc
 import gsc.ZupStar.util.DateUtils
 import gsc.ZupStar.util.LocationHelper
 import gsc.ZupStar.util.StatusBarUtil
@@ -46,7 +50,7 @@ class MapFragment : Fragment() {
         mapViews = listOf( binding.ivMap1,binding.ivMap2,binding.ivMap3,binding.ivMap4,binding.ivMap5,binding.ivMap6,binding.ivMap7, binding.ivMap8, binding.ivMap9)
         initDummy()
 
-        for (data in mapDataList) mapColoring(data)
+        for (data in mapDataList) mapViews[data.location].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
 
         locationHelper = LocationHelper(requireActivity(), requireContext())
         locationHelper.checkLocationPermission {
@@ -55,6 +59,25 @@ class MapFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (complete_mission_loc >=0 ){
+            val loc = complete_mission_loc
+            complete_mission_loc = -1
+            changeMap(loc)
+        }
+
+    }
+
+    private fun changeMap(loc: Int) {
+        val curColor = getColor(mapDataList[loc])
+        mapDataList[loc].mission++
+        val newColor = getColor(mapDataList[loc])
+        if (curColor != newColor)
+            animateColorFilter(mapViews[loc], curColor, newColor)
+    }
+
     private fun initDummy () {
         for(i in 1..5){
             misionLogList.add(
@@ -74,8 +97,8 @@ class MapFragment : Fragment() {
         }
 
         for(i in 0..mapViews.size-1){
-            if (i%3 == 1) mapDataList.add(MapData(i , 0))
-            else  mapDataList.add(MapData(i , (i+3) % 6))
+            if (i%3 == 0) mapDataList.add(MapData(i , 0))
+            else  mapDataList.add(MapData(i , (i+4) % 7))
         }
     }
 
@@ -140,7 +163,7 @@ class MapFragment : Fragment() {
         )
     }
 
-    private fun mapColoring(info : MapData){
+    private fun getColor(info : MapData) : Int{
         val colorList = listOf(R.color.white,R.color.purple_200, R.color.purple_500, R.color.purple_700, R.color.main_color)
         val color = when(info.mission){
             0 ->colorList[0]
@@ -149,7 +172,22 @@ class MapFragment : Fragment() {
             4,5 -> colorList[3]
             else -> colorList[4]
         }
-        mapViews[info.location].setColorFilter(ContextCompat.getColor(requireContext(), color), PorterDuff.Mode.SRC_IN )
+        return color
+    }
+    private fun animateColorFilter(view: ImageView, @ColorRes fromColorRes: Int, @ColorRes toColorRes: Int) {
+        Log.d(TAG,"color Change")
+        val fromColor = ContextCompat.getColor(view.context, fromColorRes)
+        val toColor = ContextCompat.getColor(view.context, toColorRes)
+
+        val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), fromColor, toColor)
+        colorAnimator.duration = 500L  // 애니메이션 지속 시간 (ms)
+
+        colorAnimator.addUpdateListener { animator ->
+            val animatedColor = animator.animatedValue as Int
+            view.setColorFilter(animatedColor, PorterDuff.Mode.SRC_IN)
+        }
+
+        colorAnimator.start()
     }
 
     fun dpToPx(dp: Int): Int {

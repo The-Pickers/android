@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
     private val missionViewModel : MissionViewModel by viewModels()
     private val homeViewModel : HomeViewModel by viewModels()
     private var missionIdx : Int = 0
-    private var location : String = "location"
+    private var curlocation : String = "location"
     private var uri : Uri? = null
     private var job: Job? = null
 
@@ -158,7 +158,7 @@ class HomeFragment : Fragment() {
             val videoUri: Uri? = result.data?.data
             if (videoUri != null) {
                 Log.d(TAG, "Captured video Uri: $videoUri")
-                val video  = VideoData(videoUri,location, LocalDateTime.now().toString())
+                val video  = VideoData(videoUri,curlocation, LocalDateTime.now().toString())
                 if (missionIdx != 0){
                     uri = videoUri
                     missionViewModel.completeMission(video)
@@ -195,6 +195,7 @@ class HomeFragment : Fragment() {
         locationHelper.getCurrentLocation { location ->
             location?.let {
                 val adminArea = locationHelper.getAdminArea(it)
+                curlocation = adminArea!!
                 Log.d(TAG, location.toString())
                 Log.d(TAG, "현재 도/특별시/광역시는: $adminArea")
             } ?: run {

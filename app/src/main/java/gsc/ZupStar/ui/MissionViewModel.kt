@@ -54,7 +54,7 @@ class MissionViewModel @Inject constructor(
         viewModelScope.launch {
             //val result = missionRepository.completeMission(token,idx, data)
             //_mission.value = result.body()!!.data
-            Log.d(TAG,"complete mission")
+            Log.d(TAG,"complete mission ${data}")
             val time = DateUtils.formatDuration(startTime, LocalDateTime.now())
 
             val dummy = MissionData(

@@ -21,7 +21,7 @@ class MissionCompleteActivity : AppCompatActivity() {
     private val TAG = javaClass.simpleName
 
     companion object{
-        var missionLoc : Int = -1;
+        var complete_mission_loc : Int = -1;
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,14 +37,15 @@ class MissionCompleteActivity : AppCompatActivity() {
         binding.tvTime.text = DateUtils.formatTime(result.takenTime)
         binding.tvPlace.text = LocationUtil.toEnglishByIndex(result.location)
 
-        missionLoc = result.location
+        complete_mission_loc = result.location-1
 
         // 완료시 맵 뷰로 바로 이동
         binding.btnComplete.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java).apply {
                 putExtra("targetFragmentId", R.id.navigation_map)  // 이동할 NavGraph 목적지 ID
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            }
+                //addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+             }
             startActivity(intent)
             finish()
         }

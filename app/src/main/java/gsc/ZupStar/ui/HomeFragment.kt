@@ -161,7 +161,7 @@ class HomeFragment : Fragment() {
                 val video  = VideoData(videoUri,location, LocalDateTime.now().toString())
                 if (missionIdx != 0){
                     uri = videoUri
-                    missionViewModel.completeMission(0,video)
+                    missionViewModel.completeMission(video)
                 }
                 else{
                     missionViewModel.startMission(video)

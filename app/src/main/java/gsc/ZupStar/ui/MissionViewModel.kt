@@ -10,6 +10,7 @@ import gsc.ZupStar.NetWork.Repository.MissionRepository
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.data.VideoData
 import gsc.ZupStar.util.DateUtils
+import gsc.ZupStar.util.LocationUtil
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -49,7 +50,7 @@ class MissionViewModel @Inject constructor(
         }
     }
 
-    fun completeMission(idx : Int, data : VideoData){
+    fun completeMission(data : VideoData){
         viewModelScope.launch {
             //val result = missionRepository.completeMission(token,idx, data)
             //_mission.value = result.body()!!.data
@@ -65,7 +66,9 @@ class MissionViewModel @Inject constructor(
                 carbonReduction = 1.0f,
                 message = "Wow",
                 detectedWaste = 2,
-                score = 10 )
+                score = 10,
+                location = LocationUtil.toIndex(data.location_name)!!
+            )
             _mission.value = dummy
         }
     }

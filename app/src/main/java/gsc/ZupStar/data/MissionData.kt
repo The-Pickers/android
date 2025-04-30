@@ -24,5 +24,7 @@ data class MissionData(
     @SerializedName("detected_waste")
     val detectedWaste : Int,
     @SerializedName("score")
-    val score : Int
+    val score : Int,
+    @SerializedName("locaiton_index")
+    val location : Int
 ) : Parcelable

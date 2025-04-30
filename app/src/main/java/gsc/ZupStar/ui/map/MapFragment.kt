@@ -67,7 +67,8 @@ class MapFragment : Fragment() {
                     detectedWaste = 0,
                     score = i*125,
                     takenTime = "",
-                    startTime = LocalDateTime.now().toString()
+                    startTime = LocalDateTime.now().toString(),
+                    location = i%9
                 )
             )
         }

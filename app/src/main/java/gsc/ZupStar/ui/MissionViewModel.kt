@@ -10,6 +10,8 @@ import gsc.ZupStar.NetWork.Repository.MissionRepository
 import gsc.ZupStar.data.ImageData
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.data.VideoData
+import gsc.ZupStar.ui.MainActivity.Companion.comment
+import gsc.ZupStar.ui.MainActivity.Companion.missionTitle
 import gsc.ZupStar.util.DateUtils
 import gsc.ZupStar.util.LocationUtil
 import gsc.ZupStar.util.dummyComment
@@ -62,10 +64,10 @@ class MissionViewModel @Inject constructor(
             val time = DateUtils.formatDuration(startTime, LocalDateTime.now())
             val score = if (idx %2 == 0) 10 else 25
             val dummy = MissionData(
-                idx,
+                comment++,
                 startTime = startTime.toString(),
                 takenTime = time,
-                title = "",
+                title = missionTitle,
                 completed = true,
                 carbonReduction = 1.0f,
                 message = dummyComment.getShort(idx),

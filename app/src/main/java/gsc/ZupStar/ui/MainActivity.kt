@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         var missionTitle = "River Cleanup"
+        var comment = 100
         const val REQUEST_CAMERA_PERMISSION = 100
         val dummy = listOf<MissionData>(
             MissionData(

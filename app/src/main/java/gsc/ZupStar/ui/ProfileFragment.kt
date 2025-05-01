@@ -21,6 +21,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater,container,false)
         StatusBarUtil.updateStatusBarColor(requireActivity(), Color.WHITE)
+
         return binding.root
     }
 }

@@ -65,7 +65,7 @@ class MissionViewModel @Inject constructor(
                 idx,
                 startTime = startTime.toString(),
                 takenTime = time,
-                title = "title",
+                title = "",
                 completed = true,
                 carbonReduction = 1.0f,
                 message = dummyComment.getShort(idx),

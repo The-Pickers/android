@@ -20,11 +20,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var spf : SharedPreferences
 
     companion object{
+        var missionTitle = "River Cleanup"
         const val REQUEST_CAMERA_PERMISSION = 100
         val dummy = listOf<MissionData>(
             MissionData(
                 index = 996,
-                title = "River Cleanup",
+                title = "Beach Cleanup",
                 message = "Mission Data ",
                 completed = true,
                 carbonReduction = 0.5f,

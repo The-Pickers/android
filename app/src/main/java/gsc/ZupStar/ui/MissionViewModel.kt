@@ -68,7 +68,7 @@ class MissionViewModel @Inject constructor(
                 title = "title",
                 completed = true,
                 carbonReduction = 1.0f,
-                message = dummyComment.getComplete(idx%10),
+                message = dummyComment.getShort(idx),
                 detectedWaste = 2,
                 score = score,
                 location = LocationUtil.toIndex(data.location_name)!!

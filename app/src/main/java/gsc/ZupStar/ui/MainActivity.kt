@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
+import gsc.ZupStar.data.MapData
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.databinding.ActivityMainBinding
 import java.time.LocalDateTime
@@ -22,43 +23,81 @@ class MainActivity : AppCompatActivity() {
         const val REQUEST_CAMERA_PERMISSION = 100
         val dummy = listOf<MissionData>(
             MissionData(
-                index = 999,
-                title = "Mission Title ",
-                message = "Mission Data ",
-                completed = true,
-                carbonReduction = 0.5f,
-                detectedWaste = 0,
-                score = 25,
-                takenTime = "",
-                startTime = LocalDateTime.now().minusDays(17).toString(),
-                location = 7
-            ),
-            MissionData(
-                index = 998,
-                title = "Mission Title ",
-                message = "Mission Data ",
-                completed = true,
-                carbonReduction = 0.5f,
-                detectedWaste = 0,
-                score = 45,
-                takenTime = "",
-                startTime = LocalDateTime.now().minusDays(11).toString(),
-                location = 5
-            ),
-            MissionData(
-                index = 997,
-                title = "Mission Title ",
+                index = 996,
+                title = "River Cleanup",
                 message = "Mission Data ",
                 completed = true,
                 carbonReduction = 0.5f,
                 detectedWaste = 0,
                 score = 10,
                 takenTime = "",
-                startTime = LocalDateTime.now().minusDays(4).toString(),
+                startTime = LocalDateTime.now().minusDays(60).toString(),
                 location = 2
-            )
+            ),
+            MissionData(
+                index = 999,
+                title = "Beach Cleanup",
+                message = "Mission Data ",
+                completed = true,
+                carbonReduction = 3.5f,
+                detectedWaste = 0,
+                score = 25,
+                takenTime = "",
+                startTime = LocalDateTime.now().minusDays(42).toString(),
+                location = 7
+            ),
+            MissionData(
+                index = 998,
+                title = "Trash Collection",
+                message = "Mission Data ",
+                completed = true,
+                carbonReduction = 4.0f,
+                detectedWaste = 0,
+                score = 45,
+                takenTime = "",
+                startTime = LocalDateTime.now().minusDays(25).toString(),
+                location = 5
+            ),
+            MissionData(
+                index = 997,
+                title = "Environmental Cleanup",
+                message = "Mission Data ",
+                completed = true,
+                carbonReduction = 3.7f,
+                detectedWaste = 0,
+                score = 10,
+                takenTime = "",
+                startTime = LocalDateTime.now().minusDays(12).toString(),
+                location = 2
+            ),
+            MissionData(
+                index = 995,
+                title = "Beach Cleanup",
+                message = "Mission Data ",
+                completed = true,
+                carbonReduction = 7.2f,
+                detectedWaste = 0,
+                score = 25,
+                takenTime = "",
+                startTime = LocalDateTime.now().minusDays(4).toString(),
+                location = 7
+            ),
         )
         val misionLogList = ArrayList<MissionData>(dummy)
+
+        val dummyMap = listOf<MapData>(
+            MapData(0, 0),
+            MapData(1, 0),
+            MapData(2, 6),
+            MapData(3, 0),
+            MapData(4, 0),
+            MapData(5, 4),
+            MapData(6, 3),
+            MapData(7, 0),
+            MapData(8, 0)
+        )
+        val mapDataList = ArrayList<MapData>(dummyMap)
+
 
     }
 

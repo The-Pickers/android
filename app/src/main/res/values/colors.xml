@@ -7,23 +7,26 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gray">#999999</color>
 
-    <color name="main_color">#36895F</color>
+
+    <color name="main_color">#64CDF8</color>
     <color name="sub_color">#C6F6DE</color>
-    <color name="text_highlight">#004B52</color>
-    <color name="text_main">#36895F</color>
+    <color name="text_main">#004B52</color>
     <color name="text_basic">#666666</color>
-    <color name="map_line">#000000</color>
+    <color name="text_sub">#4B5563</color>
+    <color name="text_point">#6B7280</color>
+    <color name="map_line">#004B52</color>
     <color name="btn_color">#5DBBDC</color>
-
+    <color name="selected_color">#E51C2B30</color>
+    <color name="unselected_color">#999999</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="map_0">#ffffff</color>
-    <color name="map_1">#afeeee</color>
-    <color name="map_2">#b0e0e6</color>
-    <color name="map_3">#add8e6</color>
-    <color name="map_4">#87ceeb</color>
+    <color name="map_1">#E3F9FF</color>
+    <color name="map_2">#AEE7FF</color>
+    <color name="map_3">#6AD2F9</color>
+    <color name="map_4">#1079A4</color>
 
     <color name="home">#AEE7FF</color>
     <color name="mission">#D3F2FD</color>
+    <color name="map">#E7F8FE</color>
 </resources>

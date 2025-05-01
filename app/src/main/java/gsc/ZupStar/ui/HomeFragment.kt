@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import android.Manifest
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.hardware.Camera
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -25,9 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.data.AccountData
 import gsc.ZupStar.data.ImageData
-import gsc.ZupStar.data.MapData
-import gsc.ZupStar.data.MissionData
-import gsc.ZupStar.data.VideoData
 import gsc.ZupStar.databinding.FragmentHomeBinding
 import gsc.ZupStar.ui.HomeViewModel
 import gsc.ZupStar.ui.MainActivity.Companion.REQUEST_CAMERA_PERMISSION

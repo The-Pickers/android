@@ -13,10 +13,12 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+        android:layout_width="265dp"
+        android:layout_height="265dp"
         android:src="@drawable/tuttle"
         android:layout_marginBottom="16dp"
+        android:translationX="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/layout_bottom"/>
     <TextView
@@ -77,7 +79,7 @@
                 android:text=""
                 android:textSize="30sp"
                 android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
-                android:textColor="@color/text_highlight"/>
+                android:textColor="@color/text_main"/>
         </LinearLayout>
 
         <LinearLayout
@@ -114,7 +116,7 @@
                 android:text=""
                 android:textSize="30sp"
                 android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
-                android:textColor="@color/text_highlight"/>
+                android:textColor="@color/text_main"/>
         </LinearLayout>
 
         <LinearLayout
@@ -151,7 +153,7 @@
                 android:text=""
                 android:textSize="30sp"
                 android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
-                android:textColor="@color/text_highlight" />
+                android:textColor="@color/text_main" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton

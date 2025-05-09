@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="gsc.ZupStar.sampledata.ProfileFragment"
+        android:name="gsc.ZupStar.ui.profile.ProfileFragment"
         android:label="@string/nav_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

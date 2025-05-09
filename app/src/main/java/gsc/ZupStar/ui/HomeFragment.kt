@@ -23,7 +23,6 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.data.AccountData
-import gsc.ZupStar.data.ImageData
 import gsc.ZupStar.databinding.FragmentHomeBinding
 import gsc.ZupStar.ui.HomeViewModel
 import gsc.ZupStar.ui.MainActivity.Companion.REQUEST_CAMERA_PERMISSION
@@ -36,7 +35,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -65,26 +64,16 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnStart.setOnClickListener {
-            if(missionIdx != 0)
-             checkCameraPermissionAndLaunch()
+            if (missionIdx == 0) {
+                missionViewModel.startMission()
+                binding.btnStart.text =  "Complete !"
+            }
+            else  checkCameraPermissionAndLaunch()
         }
 
         return binding.root
     }
 
-//    private fun initInfo() {
-//        var points : Int = 0
-//        var count : Int = 0
-//        var co2 : Float = 0f
-//        for (data in misionLogList){
-//            points +=data.score
-//            co2 += data.carbonReduction
-//            count++
-//        }
-//        binding.tvPoint.text = "+${points}"
-//        binding.tvCo2.text = co2.toString()
-//        binding.tvMission.text = count.toString()
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -138,6 +127,7 @@ class HomeFragment : Fragment() {
         missionViewModel.mission.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
             Log.d(TAG,"fragment completed ${missionIdx}")
+            missionIdx = 0
             misionLogList.add(it)
             val intent = Intent(requireActivity(),MissionCompleteActivity::class.java)
             intent.putExtra("result",it)
@@ -188,18 +178,12 @@ class HomeFragment : Fragment() {
 
     // 카메라 인텐트 시작
     private fun dispatchTakePhotoIntent() {
-        if (missionIdx == 0) {
-            missionViewModel.startMission()
-            binding.btnStart.text =  "Complete !"
-        }
-        else{
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             // 후면 카메라 요청 (제조사별 대응)
             takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", Camera.CameraInfo.CAMERA_FACING_BACK)
             takePictureIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", false)
             takePictureIntent.putExtra("android.intent.extra.USE_FRONT_CAMERA", false)
             photoCaptureLauncher.launch(takePictureIntent)
-        }
     }
 
     private fun checkCameraPermissionAndLaunch() {

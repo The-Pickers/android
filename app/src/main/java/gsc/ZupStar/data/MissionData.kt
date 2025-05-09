@@ -6,25 +6,27 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class MissionData(
+    @SerializedName("user_index")
+    val userIndex : Int,
     @SerializedName("mission_index")
-    val index : Int,
-    @SerializedName("mission_title")
-    val title: String,
+    val missionIndex : Int,
     // HH:mm:ss
-    @SerializedName("mission_time")
+    @SerializedName("mission_take_time")
     var takenTime : String = "00:00:00",
     @SerializedName("mission_start_time")
     val startTime :String,
-    @SerializedName("completed")
-    val completed : Boolean,
-    @SerializedName("carbon_reduction")
+    @SerializedName("mission_clear_time")
+    val clearTime :String,
+    @SerializedName("mission_status")
+    val status : Int,
+    @SerializedName("mission_carbon_reduction")
     val carbonReduction : Float,
-    @SerializedName("message")
-    val message : String,
-    @SerializedName("detected_waste")
+    @SerializedName("mission_detected_waste")
     val detectedWaste : Int,
-    @SerializedName("score")
+    @SerializedName("mission_score")
     val score : Int,
-    @SerializedName("locaiton_index")
+    @SerializedName("mission_message")
+    val message : String,
+    @SerializedName("location_index")
     val location : Int
 ) : Parcelable

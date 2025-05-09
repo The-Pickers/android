@@ -2,6 +2,7 @@ package gsc.ZupStar.ui.map
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -14,6 +15,8 @@ import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,10 +26,13 @@ import gsc.ZupStar.databinding.BottomsheetMapLogBinding
 import gsc.ZupStar.databinding.FragmentMapBinding
 import gsc.ZupStar.ui.MainActivity.Companion.mapDataList
 import gsc.ZupStar.ui.MainActivity.Companion.misionLogList
+import gsc.ZupStar.ui.MissionCompleteActivity
 import gsc.ZupStar.ui.MissionCompleteActivity.Companion.complete_mission_loc
+import gsc.ZupStar.ui.MissionViewModel
 import gsc.ZupStar.ui.map.MissionLogRVAdapter
 import gsc.ZupStar.util.LocationHelper
 import gsc.ZupStar.util.StatusBarUtil
+import kotlin.getValue
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
@@ -34,6 +40,8 @@ class MapFragment : Fragment() {
     lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     lateinit var locationHelper: LocationHelper
     lateinit var mapViews: List<ImageView>
+    private val adapter = MissionLogRVAdapter()
+    private val missionViewModel : MissionViewModel by viewModels()
     private val TAG = javaClass.simpleName
 
     override fun onCreateView(
@@ -44,6 +52,7 @@ class MapFragment : Fragment() {
         binding = FragmentMapBinding.inflate(inflater,container,false)
         StatusBarUtil.updateStatusBarColor(requireActivity(), ContextCompat.getColor(requireContext(), R.color.map))
         setBottomSheet()
+        setUpObservers()
         mapViews = listOf( binding.ivMap1,binding.ivMap2,binding.ivMap3,binding.ivMap4,binding.ivMap5,binding.ivMap6,binding.ivMap7, binding.ivMap8, binding.ivMap9)
         for (data in mapDataList) mapViews[data.location].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
         locationHelper = LocationHelper(requireActivity(), requireContext())
@@ -57,13 +66,21 @@ class MapFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (complete_mission_loc >=0 ){
-            val loc = complete_mission_loc
-            complete_mission_loc = -1
-            changeMap(loc)
-        }
+        missionViewModel.getMissionList()
+
+//        if (complete_mission_loc >=0 ){
+//            val loc = complete_mission_loc
+//            complete_mission_loc = -1
+//            changeMap(loc)
+//        }
     }
 
+    private fun setUpObservers(){
+        missionViewModel.missionList.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            adapter.addData(it)
+        } )
+    }
     private fun changeMap(loc: Int) {
         val curColor = getColor(mapDataList[loc])
         mapDataList[loc].mission++
@@ -98,11 +115,10 @@ class MapFragment : Fragment() {
                 }
             }
         })
-
         // RecyclerView 설정
-        val adapter = MissionLogRVAdapter(misionLogList.reversed())
         bottomSheetBinding.rvMapLog.adapter = adapter
         bottomSheetBinding.rvMapLog.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
 
     }
 

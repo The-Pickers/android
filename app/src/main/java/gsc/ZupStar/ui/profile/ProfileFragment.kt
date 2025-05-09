@@ -1,9 +1,7 @@
-package gsc.ZupStar.sampledata
+package gsc.ZupStar.ui.profile
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,9 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.databinding.FragmentProfileBinding
 import gsc.ZupStar.ui.Login.UserViewModel
-import gsc.ZupStar.ui.MainActivity
 import gsc.ZupStar.util.StatusBarUtil
-import kotlin.getValue
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -48,12 +44,12 @@ class ProfileFragment : Fragment() {
 
     private fun setUpObserver(){
         viewModel.profile.observe(viewLifecycleOwner, Observer {
-            if (it==null) return@Observer
+            if (it == null) return@Observer
             binding.tvName.text = it.name
 
-            if (it.team.isNotEmpty()){
+            if (it.team.isNotEmpty()) {
                 binding.tvTeam.text = it.team
-            } else{
+            } else {
                 binding.tvTeam.setOnClickListener {
                     // intent
                 }

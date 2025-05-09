@@ -21,6 +21,9 @@ import gsc.ZupStar.util.DateUtils
 import gsc.ZupStar.util.LocationUtil
 import gsc.ZupStar.util.dummyComment
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.time.LocalDateTime
@@ -85,31 +88,33 @@ class MissionViewModel @Inject constructor(
         }
     }
 
-    // Bitmap → Uri 변환
-    private fun saveBitmapToUri(bitmap: Bitmap): Uri {
+    // Bitmap → file 변환
+    private fun saveBitmapToFile(bitmap: Bitmap): File {
         val filename = "captured_${System.currentTimeMillis()}.jpg"
         val file = File(context.cacheDir, filename)
         FileOutputStream(file).use { out ->
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
             out.flush()
         }
-        return FileProvider.getUriForFile(
-            context,
-            "${context.packageName}.fileprovider",
-            file
-        )
+        return file
     }
+    private fun fileToMultipartPart(file: File, key: String = "photo"): MultipartBody.Part {
+        val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData(key, file.name, requestFile)
+    }
+
 
     // 서버로 업로드
     fun completeMission(bitmap: Bitmap, idx : Int, loc : String) {
         viewModelScope.launch {
             try {
                 val token = getToken()
-                val uri = saveBitmapToUri(bitmap)
+                val file = saveBitmapToFile(bitmap)
+                val multipart = fileToMultipartPart(file) // "photo"라는 key로 변환됨
                 val timestamp = LocalDateTime.now().toString()
-                val locIdx : Int = LocationUtil.toIndex(loc)!!
-                val imageData = ImageData(uri =uri, location_idx = locIdx, timestamp = timestamp)
-                val response = missionRepository.completeMission(token!!, idx, imageData)
+                val locIdx = LocationUtil.toIndex(loc)!!
+                Log.d(TAG,"MissionIdx : ${idx} / loc ${loc} - ${locIdx} ")
+                val response = missionRepository.completeMission(accessToken = token!!, idx = idx, photo = multipart, locationIdx = locIdx, timestamp= timestamp)
                 if (response.isSuccessful) {
                     Log.d(TAG,"  completeMission : ${response.body()} ")
                     _mission.value = response.body()!!.data

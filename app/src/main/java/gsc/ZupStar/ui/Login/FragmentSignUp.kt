@@ -65,6 +65,7 @@ class FragmentSignUp :Fragment() {
         binding.etInputName.visibility = View.VISIBLE
         binding.btnEnter.text = "Sign Up"
         binding.tvChangeView.setText(Html.fromHtml("<u>" + "Sign in" + "</u>"));
+        binding.tvInfo.text = "Already have an account?"
     }
 
     private fun setTextEditor(){

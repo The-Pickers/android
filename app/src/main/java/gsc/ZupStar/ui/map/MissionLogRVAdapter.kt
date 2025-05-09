@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.databinding.RvItemMapLogBinding
 import gsc.ZupStar.util.DateUtils
+import gsc.ZupStar.util.LocationUtil
 
-class MissionLogRVAdapter(private val itemList: List<MissionData>) : RecyclerView.Adapter<MissionLogRVAdapter.ViewHolder>() {
+class MissionLogRVAdapter() : RecyclerView.Adapter<MissionLogRVAdapter.ViewHolder>() {
+    private val itemList= ArrayList<MissionData>()
     inner class ViewHolder (val binding: RvItemMapLogBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(pos: Int){
-            binding.tvTitle.text = itemList[pos].title
-            binding.tvDate.text = DateUtils.formatLocalDate(itemList[pos].startTime,0)
+            binding.tvTitle.text = LocationUtil.toEnglishByIndex(itemList[pos].location)
+            binding.tvDate.text = DateUtils.formatLocalDate(itemList[pos].clearTime)
             binding.tvScore.text ="+${itemList[pos].score} pts"
         }
     }
@@ -25,5 +27,10 @@ class MissionLogRVAdapter(private val itemList: List<MissionData>) : RecyclerVie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
        holder.bind(position)
+    }
+
+    fun addData(list : List<MissionData>){
+        itemList.addAll(list)
+        notifyDataSetChanged()
     }
 }

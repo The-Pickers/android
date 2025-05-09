@@ -1,7 +1,6 @@
-package gsc.ZupStar.ui.Login
+package gsc.ZupStar.ui.profile
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -16,17 +15,18 @@ import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.data.LoginData
-import gsc.ZupStar.data.SignUpData
 import gsc.ZupStar.databinding.FragmentSignUpBinding
-import gsc.ZupStar.ui.MainActivity
-import gsc.ZupStar.ui.MissionViewModel
+import gsc.ZupStar.ui.Login.FragmentSignIn
+import gsc.ZupStar.ui.Login.UserViewModel
+import kotlin.getValue
 
 @AndroidEntryPoint
-class FragmentSignIn:Fragment() {
+class CreateTeamFargment: Fragment() {
     private val TAG = javaClass.simpleName
     lateinit var spf : SharedPreferences
     lateinit var binding: FragmentSignUpBinding
     private val viewModel : UserViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,50 +39,35 @@ class FragmentSignIn:Fragment() {
         setTextEditor()
         setUpObserver()
         binding.tvChangeView.setOnClickListener {
-            changeFragment()
+            //changeFragment()
         }
 
         binding.btnEnter.setOnClickListener {
-            val data = LoginData(
-                id =  binding.etInputEmail.text.toString(),
-                password = binding.etInputPassword.text.toString()
-            )
-//            spf.edit().putString("token","token").apply()
-//            val intent = Intent(requireActivity(), MainActivity::class.java)
-//            startActivity(intent)
-//            requireActivity().finish()
-            viewModel.signIn(data)
+            val name = binding.etInputName.text
+            //viewModel.buildTeam(name)
         }
 
         return binding.root
     }
+
     private fun setUpObserver(){
-        viewModel.token.observe(viewLifecycleOwner, Observer {
+        // 생성 성공시 종료 -> 프로필로 돌아가기
+        viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
             if (it==null) return@Observer
-            spf.edit().putInt("token",it).commit()
-            val intent = Intent(requireActivity(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            if (it) requireActivity().finish()
         })
     }
 
     private fun setView() {
-        binding.layoutTop.visibility= View.GONE
-        binding.tvTitle.text = "Log In"
-        binding.btnEnter.text = "Sign In"
-        binding.tvChangeView.setText(Html.fromHtml("<u>" + "Sign up" + "</u>"));
-        binding.tvInfo.text = "Don't have an account yet?"
+        binding.layoutInput.visibility= View.GONE
+        binding.tvTitle.text = "Team Build"
+        binding.btnEnter.text = "Team Build"
+        binding.tvChangeView.setText(Html.fromHtml("<u>" + "Add Team" + "</u>"));
+        binding.tvInfo.text = "Already have a Team?"
     }
 
     private fun setTextEditor(){
-        binding.etInputEmail.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(p0: Editable?) {
-                checkInput()
-            }
-        })
-        binding.etInputPassword.addTextChangedListener(object : TextWatcher {
+        binding.etInputName.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
@@ -90,16 +75,14 @@ class FragmentSignIn:Fragment() {
             }
         })
     }
-
     private fun checkInput() {
-        val emailFlag : Boolean = binding.etInputEmail.text.isNotEmpty()
-        val pwFlag : Boolean = binding.etInputPassword.text.isNotEmpty()
-        binding.btnEnter.isEnabled =  emailFlag && pwFlag
+        val nameFlag : Boolean = binding.etInputName.text.isNotEmpty()
+        binding.btnEnter.isEnabled = nameFlag
     }
-
     private fun changeFragment(){
         requireActivity().supportFragmentManager.beginTransaction().replace(
-            R.id.fragment_login, FragmentSignUp()
+            R.id.fragment_login, FragmentSignIn()
         ).commit()
     }
+
 }

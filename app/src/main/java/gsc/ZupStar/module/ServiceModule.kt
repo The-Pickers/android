@@ -8,6 +8,7 @@ import gsc.ZupStar.NetWork.Repository.MissionRepository
 import gsc.ZupStar.NetWork.RepositoryImpl.MissionRepositoryImpl
 import gsc.ZupStar.NetWork.Service.HomeService
 import gsc.ZupStar.NetWork.Service.MissionService
+import gsc.ZupStar.NetWork.Service.UserService
 import retrofit2.Retrofit
 
 @Module
@@ -24,6 +25,11 @@ object ServiceModule {
 
     @Provides
     fun homeApi(@NetworkModule.BaseRetrofit retrofit: Retrofit): HomeService{
+        return retrofit.buildService()
+    }
+
+    @Provides
+    fun UserService(@NetworkModule.BaseRetrofit retrofit: Retrofit): UserService{
         return retrofit.buildService()
     }
 }

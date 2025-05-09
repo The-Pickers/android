@@ -1,6 +1,7 @@
 package gsc.ZupStar.NetWork.Service
 
 import gsc.ZupStar.NetWork.Response.DefaultResponse
+import gsc.ZupStar.data.ImageData
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.data.VideoData
 import retrofit2.Response
@@ -19,14 +20,13 @@ interface MissionService {
 
     @POST("/missions/start")
     suspend fun postMission(
-        @Header("Authorization") accessToken: String,
-        @Query("mission") data: VideoData
+        @Header("Authorization") accessToken: String
     ) : Response<DefaultResponse<Int>>
 
     @PATCH("/missions/complete/{mission_index}")
     suspend fun completeMission(
         @Header("Authorization") accessToken: String,
         @Path("mission_index") idx : Int,
-        @Query("mission") data: VideoData
+        @Query("mission") data: ImageData
     ) : Response<DefaultResponse<MissionData>>
 }

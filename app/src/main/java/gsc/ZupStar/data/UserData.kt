@@ -1,0 +1,20 @@
+package gsc.ZupStar.data
+
+import com.google.gson.annotations.SerializedName
+
+data class UserData(
+    @SerializedName("user_index")
+    val idx : Int,
+    @SerializedName("id")
+    val id : String,
+    @SerializedName("password")
+    val password : String,
+    @SerializedName("name")
+    val name : String,
+    @SerializedName("birthday")
+    val birth : String,
+    @SerializedName("team_name")
+    val team : String,
+    @SerializedName("profile_image_url")
+    val profile : String
+)

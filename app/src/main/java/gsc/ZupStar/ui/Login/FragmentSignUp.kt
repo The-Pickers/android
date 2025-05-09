@@ -11,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.data.SignUpData
@@ -21,7 +23,7 @@ class FragmentSignUp :Fragment() {
     private val TAG = javaClass.simpleName
     lateinit var binding: FragmentSignUpBinding
     lateinit var spf : SharedPreferences
-
+    private val viewModel : UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +35,7 @@ class FragmentSignUp :Fragment() {
         setView()
         checkInput()
         setTextEditor()
+        setUpObserver()
         binding.tvChangeView.setOnClickListener {
             changeFragment()
         }
@@ -42,10 +45,18 @@ class FragmentSignUp :Fragment() {
                 id =  binding.etInputEmail.text.toString(),
                 password = binding.etInputPassword.text.toString()
             )
-            changeFragment()
+            viewModel.signUp(data)
         }
 
         return binding.root
+    }
+
+    private fun setUpObserver(){
+        viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
+            if (it==null) return@Observer
+            if (it)
+                changeFragment()
+        })
     }
 
     private fun setView() {

@@ -1,6 +1,5 @@
-package gsc.ZupStar.ui
+package gsc.ZupStar.ui.Ranking
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

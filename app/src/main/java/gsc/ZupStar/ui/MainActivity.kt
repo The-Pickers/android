@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
     lateinit var spf : SharedPreferences
-    private var token : Int = 0
+    private var token : String= ""
 
     companion object{
         var missionTitle = "River Cleanup"
@@ -111,8 +111,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         spf = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        token = spf.getInt("token",-1)
-        if (token <0){
+        token = spf.getString("token","").toString()
+        if (token.isEmpty()){
             val intent = Intent(this,ActivityLogin::class.java)
             startActivity(intent)
         }

@@ -6,5 +6,5 @@ data class LoginData(
     @SerializedName("id")
     val id : String,
     @SerializedName("password")
-    val pw : String
+    val password : String
 )

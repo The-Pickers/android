@@ -11,16 +11,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
+import gsc.ZupStar.data.LoginData
+import gsc.ZupStar.data.SignUpData
 import gsc.ZupStar.databinding.FragmentSignUpBinding
 import gsc.ZupStar.ui.MainActivity
+import gsc.ZupStar.ui.MissionViewModel
 
 @AndroidEntryPoint
 class FragmentSignIn:Fragment() {
     private val TAG = javaClass.simpleName
     lateinit var binding: FragmentSignUpBinding
     lateinit var spf : SharedPreferences
+    private val viewModel : UserViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,19 +37,29 @@ class FragmentSignIn:Fragment() {
         setView()
         checkInput()
         setTextEditor()
-
+        setUpObserver()
         binding.tvChangeView.setOnClickListener {
             changeFragment()
         }
 
         binding.btnEnter.setOnClickListener {
-            spf.edit().putInt("token",1).apply()
-            val intent = Intent(requireActivity(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            val data = LoginData(
+                id =  binding.etInputEmail.text.toString(),
+                password = binding.etInputPassword.text.toString()
+            )
+            viewModel.signIn(data)
         }
 
         return binding.root
+    }
+    private fun setUpObserver(){
+        viewModel.token.observe(viewLifecycleOwner, Observer {
+            if (it==null) return@Observer
+            spf.edit().putString("token",it).commit()
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        })
     }
 
     private fun setView() {

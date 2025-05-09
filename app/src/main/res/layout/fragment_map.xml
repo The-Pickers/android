@@ -7,7 +7,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/map">
+    android:background="@drawable/background_map">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -39,7 +39,7 @@
         android:id="@+id/iv_color_chart"
         android:layout_width="48dp"
         android:layout_height="60dp"
-        android:src="@drawable/item_color_list"
+        android:src="@drawable/ic_color_chart"
         android:layout_marginBottom="100dp"
         android:layout_marginEnd="42dp"
         app:layout_constraintEnd_toEndOf="parent"

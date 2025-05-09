@@ -9,24 +9,24 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="main_color">#64CDF8</color>
-    <color name="sub_color">#C6F6DE</color>
+    <color name="main_color">#9AD192</color>
+    <color name="sub_color">#F6FDEE</color>
     <color name="text_main">#004B52</color>
     <color name="text_basic">#666666</color>
     <color name="text_sub">#4B5563</color>
     <color name="text_point">#6B7280</color>
     <color name="map_line">#004B52</color>
-    <color name="btn_color">#5DBBDC</color>
+    <color name="btn_color">#9AD192</color>
     <color name="selected_color">#E51C2B30</color>
     <color name="unselected_color">#999999</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="map_0">#ffffff</color>
-    <color name="map_1">#E3F9FF</color>
-    <color name="map_2">#AEE7FF</color>
-    <color name="map_3">#6AD2F9</color>
-    <color name="map_4">#1079A4</color>
+    <color name="map_1">#F7ECCB</color>
+    <color name="map_2">#D3D7AD</color>
+    <color name="map_3">#9FAC80</color>
+    <color name="map_4">#004B52</color>
 
     <color name="home">#AEE7FF</color>
-    <color name="mission">#D3F2FD</color>
+    <color name="mission">#9AD192</color>
     <color name="map">#E7F8FE</color>
 </resources>

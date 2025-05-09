@@ -1,5 +1,7 @@
 package gsc.ZupStar.ui
 
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.addCallback
@@ -12,12 +14,14 @@ import gsc.ZupStar.R
 import gsc.ZupStar.data.MapData
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.databinding.ActivityMainBinding
+import gsc.ZupStar.ui.Login.ActivityLogin
 import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
     lateinit var spf : SharedPreferences
+    private var token : Int = 0
 
     companion object{
         var missionTitle = "River Cleanup"
@@ -106,7 +110,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
+        spf = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        token = spf.getInt("token",-1)
+        if (token <0){
+            val intent = Intent(this,ActivityLogin::class.java)
+            startActivity(intent)
+        }
         setContentView(binding.root)
 
         val bottomNav : BottomNavigationView = binding.navBottom

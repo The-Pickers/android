@@ -9,11 +9,9 @@
     <style name="TextAppearance.App.Pretendard.Basic" parent="TextAppearance.AppCompat">
 
     </style>
-    <style name="TextAppearance.App.Montserrat.Bold" parent="TextAppearance.AppCompat">
-        <item name="android:textStyle">bold</item>
-<!--        <item name="android:fontFamily">@font/montserrat_font</item>-->
-    </style>
-    <style name="TextAppearance.App.Montserrat.Basic" parent="TextAppearance.AppCompat">
-<!--        <item name="android:fontFamily">@font/montserrat_font</item>-->
+    <style name="TextAppearance.App.Pretendard.underLine" parent="TextAppearance.AppCompat">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/main_color</item>
+
     </style>
 </resources>

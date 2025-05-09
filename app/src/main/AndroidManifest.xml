@@ -35,7 +35,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MissionCompleteActivity" android:exported="false"/>
-    </application>
+        <activity android:name=".ui.Login.ActivityLogin" android:exported="false"/>
+     </application>
 
 
 </manifest>

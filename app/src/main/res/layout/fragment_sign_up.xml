@@ -12,6 +12,7 @@
         android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
         android:textSize="20sp"
         android:gravity="center"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"/>
     <LinearLayout
         android:id="@+id/layout_input"
@@ -34,11 +35,12 @@
         <EditText
             android:id="@+id/et_input_name"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:paddingVertical="16dp"
             android:paddingHorizontal="12dp"
             android:textSize="16sp"
             android:hint="Enter your name"
+            android:textColor="@color/black"
             android:textColorHint="@color/unselected_color"/>
 
         <TextView
@@ -53,10 +55,11 @@
         <EditText
             android:id="@+id/et_input_email"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:paddingVertical="16dp"
             android:paddingHorizontal="12dp"
             android:textSize="16sp"
+            android:textColor="@color/black"
             android:hint="Enter your email"
             android:textColorHint="@color/unselected_color"/>
         <TextView
@@ -71,10 +74,11 @@
         <EditText
             android:id="@+id/et_input_password"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:paddingVertical="16dp"
             android:paddingHorizontal="12dp"
             android:textSize="16sp"
+            android:textColor="@color/black"
             android:hint="Enter your password"
             android:textColorHint="@color/unselected_color"/>
     </LinearLayout>
@@ -106,7 +110,7 @@
             android:text="Already have an account?"
             android:textSize="16sp"
              android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
-
+            android:textColor="@color/text_sub"
              />
         <TextView
             android:id="@+id/tv_change_view"

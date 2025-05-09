@@ -69,7 +69,7 @@ class RankingFragment : Fragment() {
     private fun initDummy(): List<RankListData.RankData> {
         val dummy = ArrayList<RankListData.RankData>()
         val name = if (isTeam) "Team" else "name"
-        for (i in 1.. 10)
+        for (i in 1.. 7)
             dummy.add(RankListData.RankData(i,name+i.toString(), i, "info"))
         return dummy
     }

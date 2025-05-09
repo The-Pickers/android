@@ -29,8 +29,8 @@
     <color name="map_3">#9FAC80</color>
     <color name="map_4">#004B52</color>
 
-    <color name="home">#AEE7FF</color>
+    <color name="home">#F6FCEE</color>
     <color name="mission">#9AD192</color>
-    <color name="map">#E7F8FE</color>
+    <color name="map">#FBFCF7</color>
     <color name="bottom_sheet">#B2F0FDFC</color>
 </resources>

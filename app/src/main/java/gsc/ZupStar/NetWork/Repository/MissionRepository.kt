@@ -8,9 +8,9 @@ import retrofit2.Response
 
 
 interface MissionRepository {
-    suspend fun getMissionList(accessToken: String) : Response<DefaultResponse<List<MissionData>>>
-    suspend fun postMission( accessToken: String) : Response<DefaultResponse<Int>>
-    suspend fun completeMission(accessToken: String, idx : Int, data: ImageData) : Response<DefaultResponse<MissionData>>
+    suspend fun getMissionList(accessToken: Int) : Response<DefaultResponse<List<MissionData>>>
+    suspend fun postMission( accessToken: Int) : Response<DefaultResponse<Int>>
+    suspend fun completeMission(accessToken: Int, idx : Int, data: ImageData) : Response<DefaultResponse<MissionData>>
 
 
 }

@@ -12,7 +12,7 @@ class mapViewMidel @Inject constructor(
 
 ) : ViewModel(){
     private val TAG = javaClass.simpleName
-    private val token = "token"
+    private val token = 0
 
     private val _locationInfo = MutableLiveData<MapData>()
     val locationInfo : LiveData<MapData> get() = _locationInfo

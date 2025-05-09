@@ -72,27 +72,26 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun initInfo() {
-        var points : Int = 0
-        var count : Int = 0
-        var co2 : Float = 0f
-        for (data in misionLogList){
-            points +=data.score
-            co2 += data.carbonReduction
-            count++
-        }
-        binding.tvPoint.text = "+${points}"
-        binding.tvCo2.text = co2.toString()
-        binding.tvMission.text = count.toString()
-    }
+//    private fun initInfo() {
+//        var points : Int = 0
+//        var count : Int = 0
+//        var co2 : Float = 0f
+//        for (data in misionLogList){
+//            points +=data.score
+//            co2 += data.carbonReduction
+//            count++
+//        }
+//        binding.tvPoint.text = "+${points}"
+//        binding.tvCo2.text = co2.toString()
+//        binding.tvMission.text = count.toString()
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initInfo()
         // 주기적으로 정령 멘트 교체
         job = viewLifecycleOwner.lifecycleScope.launch {
             while (isActive) {
-                homeViewModel.getComment()
+               // homeViewModel.getComment()
                 delay(10_000)  // 1분 대기
             }
         }
@@ -101,7 +100,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.btnStart.text = if (missionIdx != 0) "Complete !" else "Get Start"
-        //homeViewModel.getAccount()
+        homeViewModel.getAccount()
 
     }
 

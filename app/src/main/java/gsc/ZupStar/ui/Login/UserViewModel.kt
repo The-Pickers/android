@@ -21,8 +21,8 @@ class UserViewModel @Inject constructor(
     private val _isSuccess = MutableLiveData<Boolean>()
     val isSuccess : LiveData<Boolean> get() = _isSuccess
 
-    private val _token = MutableLiveData<String>()
-    val token : LiveData<String> get() = _token
+    private val _token = MutableLiveData<Int>()
+    val token : LiveData<Int> get() = _token
 
     fun signUp(data : SignUpData){
         viewModelScope.launch {
@@ -45,10 +45,9 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = userRepository.login(data)
-
                 if (response.isSuccessful) {
                     Log.d(TAG," signIn 응답성공 : ${response.body()} ")
-                    _token.value = response.body()!!.data.toString()
+                    _token.value = response.body()!!.data.token
                 }
                 else
                     Log.d(TAG," signIn 응답실패 : ${response.body()} ")

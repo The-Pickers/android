@@ -10,11 +10,11 @@ import javax.inject.Inject
 class HomeRepositoryImpl @Inject constructor(
     val api: HomeService
 ) : HomeRepository{
-    override suspend fun getComment(accessToken: String): Response<DefaultResponse<List<String>>> {
+    override suspend fun getComment(accessToken: Int): Response<DefaultResponse<List<String>>> {
         return api.getComment(accessToken)
     }
 
-    override suspend fun getAccount(accessToken: String): Response<DefaultResponse<AccountData>> {
+    override suspend fun getAccount(accessToken: Int): Response<DefaultResponse<AccountData>> {
         return api.getAccount(accessToken)
     }
 }

@@ -3,6 +3,7 @@ package gsc.ZupStar.NetWork.RepositoryImpl
 import android.net.Uri
 import gsc.ZupStar.NetWork.Repository.UserRepository
 import gsc.ZupStar.NetWork.Response.DefaultResponse
+import gsc.ZupStar.NetWork.Response.TokenResponse
 import gsc.ZupStar.NetWork.Service.UserService
 import gsc.ZupStar.data.LoginData
 import gsc.ZupStar.data.SignUpData
@@ -17,23 +18,23 @@ class UserRepositoryImpl @Inject constructor(
         return api.signUp(body)
     }
 
-    override suspend fun login(body: LoginData): Response<DefaultResponse<Int>> {
+    override suspend fun login(body: LoginData): Response<DefaultResponse<TokenResponse>> {
        return api.login(body)
     }
 
-    override suspend fun getUserInfo(accessToken: String): Response<DefaultResponse<UserData>> {
+    override suspend fun getUserInfo(accessToken: Int): Response<DefaultResponse<UserData>> {
        return api.getUserInfo(accessToken)
     }
 
     override suspend fun updateProfileImg(
-        accessToken: String,
+        accessToken: Int,
         body: Uri
     ): Response<DefaultResponse<String>> {
        return api.updateProfileImg(accessToken, body)
     }
 
     override suspend fun updateProfile(
-        accessToken: String,
+        accessToken: Int,
         body: UserData
     ): Response<DefaultResponse<String>> {
       return api.updateProfile(accessToken,body)

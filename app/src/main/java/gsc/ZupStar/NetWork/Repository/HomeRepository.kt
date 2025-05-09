@@ -5,7 +5,7 @@ import gsc.ZupStar.data.AccountData
 import retrofit2.Response
 
 interface HomeRepository {
-    suspend fun getComment(accessToken: String): Response<DefaultResponse<List<String>>>
+    suspend fun getComment(accessToken: Int): Response<DefaultResponse<List<String>>>
 
-    suspend fun getAccount(accessToken: String): Response<DefaultResponse<AccountData>>
+    suspend fun getAccount(accessToken: Int): Response<DefaultResponse<AccountData>>
 }

@@ -3,10 +3,10 @@ package gsc.ZupStar.data
 import com.google.gson.annotations.SerializedName
 
 data class AccountData(
-    @SerializedName("user_mission_count")
+    @SerializedName("mission_count")
     val missionCount : Int,
-    @SerializedName("score_log_total_score")
+    @SerializedName("total_score")
     val totalScore : Int,
-    @SerializedName("score_log_carbon_reduction")
+    @SerializedName("carbon_reduction")
     val carbonReduction : Float
 )

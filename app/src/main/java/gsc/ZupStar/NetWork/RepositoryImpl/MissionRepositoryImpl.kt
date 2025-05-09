@@ -12,18 +12,18 @@ import javax.inject.Inject
 class MissionRepositoryImpl @Inject constructor(
     private val api : MissionService
 ) : MissionRepository{
-    override suspend fun getMissionList(accessToken: String): Response<DefaultResponse<List<MissionData>>> {
+    override suspend fun getMissionList(accessToken: Int): Response<DefaultResponse<List<MissionData>>> {
         return api.getMissionList(accessToken)
     }
 
     override suspend fun postMission(
-        accessToken: String,
+        accessToken: Int,
     ): Response<DefaultResponse<Int>> {
        return api.postMission(accessToken)
     }
 
     override suspend fun completeMission(
-        accessToken: String,
+        accessToken: Int,
         idx : Int,
         data: ImageData
     ): Response<DefaultResponse<MissionData>> {

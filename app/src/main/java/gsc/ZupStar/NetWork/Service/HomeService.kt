@@ -10,11 +10,11 @@ interface HomeService {
 
     @GET("/users/impact")
     suspend fun getComment(
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: Int
     ): Response<DefaultResponse<List<String>>>
 
-    @GET("/user/home")
+    @GET("/users/home")
     suspend fun getAccount(
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken:Int
     ): Response<DefaultResponse<AccountData>>
 }

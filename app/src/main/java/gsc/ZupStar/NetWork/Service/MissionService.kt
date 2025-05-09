@@ -15,17 +15,17 @@ import retrofit2.http.Query
 interface MissionService {
     @GET("/missions")
     suspend fun getMissionList(
-        @Header("Authorization") accessToken: String,
+        @Header("Authorization") accessToken: Int,
     ) : Response<DefaultResponse<List<MissionData>>>
 
     @POST("/missions/start")
     suspend fun postMission(
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: Int
     ) : Response<DefaultResponse<Int>>
 
     @PATCH("/missions/complete/{mission_index}")
     suspend fun completeMission(
-        @Header("Authorization") accessToken: String,
+        @Header("Authorization") accessToken: Int,
         @Path("mission_index") idx : Int,
         @Query("mission") data: ImageData
     ) : Response<DefaultResponse<MissionData>>

@@ -1,7 +1,9 @@
 package gsc.ZupStar.NetWork.Service
 
+import android.media.session.MediaSession
 import android.net.Uri
 import gsc.ZupStar.NetWork.Response.DefaultResponse
+import gsc.ZupStar.NetWork.Response.TokenResponse
 import gsc.ZupStar.data.UserData
 import gsc.ZupStar.data.LoginData
 import gsc.ZupStar.data.SignUpData
@@ -22,22 +24,22 @@ interface UserService {
     @POST("/login")
     suspend fun login(
         @Body body : LoginData
-    ): Response<DefaultResponse<Int>>
+    ): Response<DefaultResponse<TokenResponse>>
 
     @GET("/users")
     suspend fun getUserInfo(
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: Int
     ) : Response<DefaultResponse<UserData>>
 
     @PATCH("/users/profile")
     suspend fun updateProfileImg(
-        @Header("Authorization") accessToken: String,
+        @Header("Authorization") accessToken: Int,
         @Body body : Uri
     ) : Response<DefaultResponse<String>>
 
     @PATCH("/users")
     suspend fun updateProfile(
-        @Header("Authorization") accessToken: String,
+        @Header("Authorization") accessToken: Int,
         @Body body : UserData
     ) :Response<DefaultResponse<String>>
 

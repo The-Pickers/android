@@ -59,7 +59,7 @@ class FragmentSignIn:Fragment() {
     private fun setUpObserver(){
         viewModel.token.observe(viewLifecycleOwner, Observer {
             if (it==null) return@Observer
-            spf.edit().putString("token",it).commit()
+            spf.edit().putInt("token",it).commit()
             val intent = Intent(requireActivity(), MainActivity::class.java)
             startActivity(intent)
             requireActivity().finish()

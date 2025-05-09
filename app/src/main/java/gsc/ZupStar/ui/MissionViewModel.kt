@@ -47,8 +47,8 @@ class MissionViewModel @Inject constructor(
 
 
 
-    fun getToken(): String? {
-        return spf.getString("token", null)
+    fun getToken(): Int? {
+        return spf.getInt("token", -1)
     }
 
     fun getMissionList(){

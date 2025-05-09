@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
+import gsc.ZupStar.data.RankListData
 import gsc.ZupStar.databinding.FragmentRankingBinding
 import gsc.ZupStar.util.StatusBarUtil
 
@@ -33,8 +34,7 @@ class RankingFragment : Fragment() {
     ): View? {
         binding = FragmentRankingBinding.inflate(inflater,container,false)
         StatusBarUtil.updateStatusBarColor(requireActivity(), Color.WHITE)
-        val data = initDummy()
-        val adapter = RankingRVAdapter(data)
+        val adapter = RankingRVAdapter(initDummy())
         binding.rvRank.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvRank.adapter = adapter
 
@@ -43,7 +43,7 @@ class RankingFragment : Fragment() {
                 isTeam = !isTeam
                 setButton(binding.tvTeam, MODE_UNSELECT)
                 setButton(binding.tvIndividual, MODE_SELECT)
-                binding.rvRank.adapter=  RankingRVAdapter(data.reversed())
+                binding.rvRank.adapter=  RankingRVAdapter(initDummy())
             }
         }
         binding.tvTeam.setOnClickListener {
@@ -51,7 +51,7 @@ class RankingFragment : Fragment() {
                 isTeam = !isTeam
                 setButton(binding.tvTeam, MODE_SELECT)
                 setButton(binding.tvIndividual, MODE_UNSELECT)
-                binding.rvRank.adapter=  RankingRVAdapter(data)
+                binding.rvRank.adapter=  RankingRVAdapter(initDummy())
             }
         }
 
@@ -66,10 +66,11 @@ class RankingFragment : Fragment() {
         )
     }
 
-    private fun initDummy(): List<String> {
-        val dummy = ArrayList<String>()
+    private fun initDummy(): List<RankListData.RankData> {
+        val dummy = ArrayList<RankListData.RankData>()
+        val name = if (isTeam) "Team" else "name"
         for (i in 1.. 10)
-            dummy.add("TEAM Dummy ${i}")
+            dummy.add(RankListData.RankData(i,name+i.toString(), i, "info"))
         return dummy
     }
 }

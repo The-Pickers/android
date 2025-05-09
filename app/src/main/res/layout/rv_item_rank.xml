@@ -3,53 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingHorizontal="8dp"
-    android:layout_marginBottom="24dp">
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="12dp">
+
     <TextView
         android:id="@+id/tv_idx"
-        android:layout_width="wrap_content"
+        android:layout_width="32dp"
         android:layout_height="wrap_content"
         android:text="1"
         android:textSize="20sp"
         android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
         android:textColor="@color/black"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     <ImageView
         android:id="@+id/iv_profile_img"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:src="@drawable/ic_empty_profile"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/tv_idx"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_team_name"
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text= "Team"
-        android:textSize="15sp"
+        android:text= "Name"
+        android:textSize="16sp"
         android:textColor="@color/black"
         android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toEndOf="@id/iv_profile_img"
         app:layout_constraintTop_toTopOf="parent"/>
     <TextView
-        android:id="@+id/tv_team_info"
+        android:id="@+id/tv_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text= "Team"
+        android:text= "info"
         android:textSize="13sp"
         android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
+        android:textColor="@color/text_sub"
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toEndOf="@id/iv_profile_img"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_team_point"
+        android:id="@+id/tv_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="4,352 pts"
@@ -59,7 +62,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,14 +3,17 @@ package gsc.ZupStar.ui.Ranking
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import gsc.ZupStar.data.RankListData
 import gsc.ZupStar.databinding.RvItemRankBinding
 
 
-class RankingRVAdapter (private val itemList : List<String>) : RecyclerView.Adapter<RankingRVAdapter.ViewHolder>() {
+class RankingRVAdapter (private val itemList : List<RankListData.RankData>) : RecyclerView.Adapter<RankingRVAdapter.ViewHolder>() {
     inner class ViewHolder (val binding: RvItemRankBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(pos: Int){
-            binding.tvTeamName.text = itemList[pos]
-            binding.tvIdx.text = "${pos+1}"
+            val item = itemList[pos]
+            binding.tvName.text = item.name
+            binding.tvIdx.text = item.rank.toString()
+            binding.tvInfo.text = item.info
         }
     }
 

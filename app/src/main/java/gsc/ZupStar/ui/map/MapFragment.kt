@@ -24,6 +24,7 @@ import gsc.ZupStar.databinding.FragmentMapBinding
 import gsc.ZupStar.ui.MainActivity.Companion.mapDataList
 import gsc.ZupStar.ui.MainActivity.Companion.misionLogList
 import gsc.ZupStar.ui.MissionCompleteActivity.Companion.complete_mission_loc
+import gsc.ZupStar.ui.map.MissionLogRVAdapter
 import gsc.ZupStar.util.LocationHelper
 import gsc.ZupStar.util.StatusBarUtil
 

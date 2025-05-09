@@ -33,7 +33,7 @@ class RankingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRankingBinding.inflate(inflater,container,false)
-        StatusBarUtil.updateStatusBarColor(requireActivity(), Color.WHITE)
+        StatusBarUtil.updateStatusBarColor(requireActivity(), ContextCompat.getColor(requireContext(), R.color.sub_color))
         val adapter = RankingRVAdapter(initDummy())
         binding.rvRank.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvRank.adapter = adapter

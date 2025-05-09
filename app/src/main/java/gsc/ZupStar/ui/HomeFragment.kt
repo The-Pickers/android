@@ -47,7 +47,6 @@ class HomeFragment : Fragment() {
     private val homeViewModel : HomeViewModel by viewModels()
     private var missionIdx : Int = 0
     private var curlocation : String = "location"
-    private var uri : Uri? = null
     private var job: Job? = null
 
 
@@ -66,7 +65,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnStart.setOnClickListener {
-            checkCameraPermissionAndLaunch()
+            if(missionIdx != 0)
+             checkCameraPermissionAndLaunch()
         }
 
         return binding.root
@@ -135,16 +135,12 @@ class HomeFragment : Fragment() {
     }
 
 
-
-
     private fun setUpObservers(){
         missionViewModel.mission.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
-            missionIdx = 0
             Log.d(TAG,"fragment completed ${missionIdx}")
             misionLogList.add(it)
             val intent = Intent(requireActivity(),MissionCompleteActivity::class.java)
-            intent.putExtra("video_uri", uri.toString())
             intent.putExtra("result",it)
             startActivity(intent)
         } )
@@ -171,6 +167,8 @@ class HomeFragment : Fragment() {
         binding.tvCo2.text = data.carbonReduction.toString()
     }
 
+
+
     // 카메라런쳐
     // 카메라 런처 (사진 촬영용으로 수정됨)
     private val photoCaptureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -178,11 +176,8 @@ class HomeFragment : Fragment() {
             val bitmap = result.data?.extras?.get("data") as? Bitmap
             if (bitmap != null) {
                 Log.d(TAG, "Captured image bitmap: $bitmap")
-
-                val imageData = ImageData(bitmap, curlocation, LocalDateTime.now().toString())
-
                 if (missionIdx != 0) {
-                    missionViewModel.completeMission(imageData, missionIdx)
+                    missionViewModel.completeMission(bitmap, missionIdx, curlocation )
                 }
             } else {
                 Log.d(TAG, "No bitmap image received.")
@@ -192,6 +187,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // 카메라 인텐트 시작
     private fun dispatchTakePhotoIntent() {
         if (missionIdx == 0) {
             missionViewModel.startMission()
@@ -203,7 +199,6 @@ class HomeFragment : Fragment() {
             takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", Camera.CameraInfo.CAMERA_FACING_BACK)
             takePictureIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", false)
             takePictureIntent.putExtra("android.intent.extra.USE_FRONT_CAMERA", false)
-
             photoCaptureLauncher.launch(takePictureIntent)
         }
     }

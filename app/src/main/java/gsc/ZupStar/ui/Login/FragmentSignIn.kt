@@ -47,11 +47,11 @@ class FragmentSignIn:Fragment() {
                 id =  binding.etInputEmail.text.toString(),
                 password = binding.etInputPassword.text.toString()
             )
-            spf.edit().putString("token","token").apply()
-            val intent = Intent(requireActivity(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-            //viewModel.signIn(data)
+//            spf.edit().putString("token","token").apply()
+//            val intent = Intent(requireActivity(), MainActivity::class.java)
+//            startActivity(intent)
+//            requireActivity().finish()
+            viewModel.signIn(data)
         }
 
         return binding.root

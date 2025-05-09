@@ -1,12 +1,14 @@
 package gsc.ZupStar.data
 
-import android.graphics.Bitmap
+
+import android.net.Uri
 import com.google.gson.annotations.SerializedName
 
 data class ImageData(
-    val bitmap: Bitmap,
-    @SerializedName("location_name")
-    var location_name : String,
+    @SerializedName("photo")
+    val uri: Uri,
+    @SerializedName("location_idx")
+    var location_idx : Int,
     //"YYYY-MM-DDTHH:mm:ss
     @SerializedName("timestamp")
     var  timestamp : String

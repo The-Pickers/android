@@ -2,7 +2,6 @@ package gsc.ZupStar.ui.map
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import gsc.ZupStar.data.MissionData
 import gsc.ZupStar.databinding.RvItemMapLogBinding

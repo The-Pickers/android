@@ -24,8 +24,8 @@ import gsc.ZupStar.ui.MissionViewModel
 @AndroidEntryPoint
 class FragmentSignIn:Fragment() {
     private val TAG = javaClass.simpleName
-    lateinit var binding: FragmentSignUpBinding
     lateinit var spf : SharedPreferences
+    lateinit var binding: FragmentSignUpBinding
     private val viewModel : UserViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,

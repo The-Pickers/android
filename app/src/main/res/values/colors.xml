@@ -32,5 +32,6 @@
     <color name="home">#F6FCEE</color>
     <color name="mission">#9AD192</color>
     <color name="map">#FBFCF7</color>
+    <color name="profile">#C9E6C4</color>
     <color name="bottom_sheet">#B2F0FDFC</color>
 </resources>

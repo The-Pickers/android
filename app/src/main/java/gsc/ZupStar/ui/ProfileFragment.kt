@@ -1,18 +1,33 @@
 package gsc.ZupStar.sampledata
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
+import gsc.ZupStar.R
 import gsc.ZupStar.databinding.FragmentProfileBinding
+import gsc.ZupStar.ui.Login.UserViewModel
+import gsc.ZupStar.ui.MainActivity
 import gsc.ZupStar.util.StatusBarUtil
+import kotlin.getValue
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
+    private val TAG = javaClass.simpleName
+    lateinit var spf : SharedPreferences
     lateinit var binding : FragmentProfileBinding
+    private val viewModel : UserViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,8 +35,39 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater,container,false)
-        StatusBarUtil.updateStatusBarColor(requireActivity(), Color.WHITE)
-
+        StatusBarUtil.updateStatusBarColor(requireActivity(), ContextCompat.getColor(requireContext(), R.color.profile))
+        spf = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        setUpObserver()
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProfile()
+    }
+
+    private fun setUpObserver(){
+        viewModel.profile.observe(viewLifecycleOwner, Observer {
+            if (it==null) return@Observer
+            binding.tvName.text = it.name
+
+            if (it.team.isNotEmpty()){
+                binding.tvTeam.text = it.team
+            } else{
+                binding.tvTeam.setOnClickListener {
+                    // intent
+                }
+            }
+            getImgUri()
+        })
+    }
+
+    private fun getImgUri(){
+        val uriString = spf.getString("profile_uri", null)
+        if (uriString != null) {
+            val uri = uriString?.let { Uri.parse(it) }
+            binding.ivProfileImg.setImageURI(uri)
+        }
+
     }
 }

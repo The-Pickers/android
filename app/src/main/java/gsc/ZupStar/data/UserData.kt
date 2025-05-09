@@ -11,8 +11,6 @@ data class UserData(
     val password : String,
     @SerializedName("name")
     val name : String,
-    @SerializedName("birthday")
-    val birth : String,
     @SerializedName("team_name")
     val team : String,
     @SerializedName("profile_image_url")

@@ -20,7 +20,6 @@ class HomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ): ViewModel() {
     private val TAG = javaClass.simpleName
-    private val spf = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
 
     private val _comment = MutableLiveData<String>()
     val comment : LiveData<String> get() = _comment
@@ -29,7 +28,7 @@ class HomeViewModel @Inject constructor(
     val account : LiveData<AccountData> get() = _account
 
     private var idx = 0
-
+    private val spf = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
     fun getToken(): Int? {
         return spf.getInt("token", -1)
     }

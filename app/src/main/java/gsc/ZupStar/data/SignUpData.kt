@@ -10,8 +10,8 @@ data class SignUpData(
     val password : String,
     @SerializedName("name")
     val name : String,
-    @SerializedName("birthday")
-    val birth : String,
+//    @SerializedName("birthday")
+//    val birth : String,
     @SerializedName("team_code")
-    val team : String
+    val team : String = ""
 )

@@ -3,20 +3,25 @@ package gsc.ZupStar.ui.Login
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.text.Editable
 import android.text.Html
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
+import gsc.ZupStar.data.SignUpData
 import gsc.ZupStar.databinding.FragmentSignUpBinding
 
 @AndroidEntryPoint
-class FragmentSignUp:Fragment() {
+class FragmentSignUp :Fragment() {
     private val TAG = javaClass.simpleName
     lateinit var binding: FragmentSignUpBinding
     lateinit var spf : SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +31,17 @@ class FragmentSignUp:Fragment() {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         spf = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         setView()
+        checkInput()
+        setTextEditor()
         binding.tvChangeView.setOnClickListener {
+            changeFragment()
+        }
+        binding.btnEnter.setOnClickListener {
+            val data = SignUpData(
+                name = binding.etInputName.text.toString(),
+                id =  binding.etInputEmail.text.toString(),
+                password = binding.etInputPassword.text.toString()
+            )
             changeFragment()
         }
 
@@ -41,8 +56,39 @@ class FragmentSignUp:Fragment() {
         binding.tvChangeView.setText(Html.fromHtml("<u>" + "Sign in" + "</u>"));
     }
 
+    private fun setTextEditor(){
+        binding.etInputName.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+               checkInput()
+            }
+        })
+        binding.etInputEmail.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                checkInput()
+            }
+        })
+        binding.etInputPassword.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                checkInput()
+            }
+        })
+    }
+
+    private fun checkInput() {
+        val nameFlag : Boolean = binding.etInputName.text.isNotEmpty()
+        val emailFlag : Boolean = binding.etInputEmail.text.isNotEmpty()
+        val pwFlag : Boolean = binding.etInputPassword.text.isNotEmpty()
+        binding.btnEnter.isEnabled = nameFlag && emailFlag && pwFlag
+    }
+
     private fun changeFragment(){
-        (context as ActivityLogin).supportFragmentManager.beginTransaction().replace(
+        requireActivity().supportFragmentManager.beginTransaction().replace(
             R.id.fragment_login, FragmentSignIn()
         ).commit()
     }

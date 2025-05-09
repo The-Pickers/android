@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
 import android.text.Html
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +28,9 @@ class FragmentSignIn:Fragment() {
     ): View? {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         spf = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-
         setView()
+        checkInput()
+        setTextEditor()
 
         binding.tvChangeView.setOnClickListener {
             changeFragment()
@@ -51,8 +54,31 @@ class FragmentSignIn:Fragment() {
         binding.tvChangeView.setText(Html.fromHtml("<u>" + "Sign up" + "</u>"));
     }
 
+    private fun setTextEditor(){
+        binding.etInputEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                checkInput()
+            }
+        })
+        binding.etInputPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                checkInput()
+            }
+        })
+    }
+
+    private fun checkInput() {
+        val emailFlag : Boolean = binding.etInputEmail.text.isNotEmpty()
+        val pwFlag : Boolean = binding.etInputPassword.text.isNotEmpty()
+        binding.btnEnter.isEnabled =  emailFlag && pwFlag
+    }
+
     private fun changeFragment(){
-        (context as ActivityLogin).supportFragmentManager.beginTransaction().replace(
+        requireActivity().supportFragmentManager.beginTransaction().replace(
             R.id.fragment_login, FragmentSignUp()
         ).commit()
     }

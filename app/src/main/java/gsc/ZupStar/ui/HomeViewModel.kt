@@ -16,7 +16,7 @@ class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository
 ): ViewModel() {
     private val TAG = javaClass.simpleName
-    private val token = "token"
+
 
     private val _comment = MutableLiveData<String>()
     val comment : LiveData<String> get() = _comment

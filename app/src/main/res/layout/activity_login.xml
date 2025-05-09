@@ -6,7 +6,7 @@
     android:paddingTop="54dp"
     android:background="@color/white">
 
-  <fragment
+  <androidx.fragment.app.FragmentContainerView
       android:id="@+id/fragment_login"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>

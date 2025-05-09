@@ -2,20 +2,21 @@ package gsc.ZupStar.ui.Login
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
 import gsc.ZupStar.databinding.ActivityLoginBinding
+import gsc.ZupStar.util.StatusBarUtil
 
 @AndroidEntryPoint
-class ActivityLogin:AppCompatActivity() {
+class ActivityLogin : AppCompatActivity() {
     private val TAG = javaClass.simpleName
     lateinit var binding: ActivityLoginBinding
-    private val fragmentList = listOf<Fragment>(FragmentSignIn(),FragmentSignUp())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        StatusBarUtil.updateStatusBarColor(this, ContextCompat.getColor(this, R.color.white))
         setContentView(binding.root)
 
         supportFragmentManager.beginTransaction().replace(

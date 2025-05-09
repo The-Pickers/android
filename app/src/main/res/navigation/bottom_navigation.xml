@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/navigation_ranking"
-        android:name="gsc.ZupStar.sampledata.RankingFragment"
+        android:name="gsc.ZupStar.ui.Ranking.RankingFragment"
         android:label="@string/nav_ranking"
         tools:layout="@layout/fragment_ranking" />
     <fragment

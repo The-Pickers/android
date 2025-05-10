@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MissionViewModel @Inject constructor(
-    private val missionRepository: MissionRepository,
+    private val repository: MissionRepository,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
@@ -58,12 +58,12 @@ class MissionViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val token = getToken()
-                val response = missionRepository.getMissionList(token!!)
+                val response = repository.getMissionList(token!!)
                 if (response.isSuccessful) {
-                    Log.d(TAG," getMissionList : ${response.body()} ")
+                    Log.d(TAG," getMissionList 응답 성공: ${response.body()} ")
                     _missionList.value = response.body()!!.data
                 } else
-                    Log.d(TAG," getMissionList 응답실패 : ${response.body()} ")
+                    Log.d(TAG," getMissionList 응답 실패 : ${response.body()} ")
 
             }catch (e: Exception){
                 Log.d(TAG, "getMissionList api 요청 실패: ${e}")
@@ -75,7 +75,7 @@ class MissionViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val token = getToken()
-                val response = missionRepository.postMission(token!!)
+                val response = repository.postMission(token!!)
                 if (response.isSuccessful) {
                     Log.d(TAG,"  startMission : ${response.body()} ")
                     _missionIdx.value = response.body()!!.data
@@ -114,7 +114,7 @@ class MissionViewModel @Inject constructor(
                 val timestamp = LocalDateTime.now().toString()
                 val locIdx = LocationUtil.toIndex(loc)!!
                 Log.d(TAG,"MissionIdx : ${idx} / loc ${loc} - ${locIdx} ")
-                val response = missionRepository.completeMission(accessToken = token!!, idx = idx, photo = multipart, locationIdx = locIdx, timestamp= timestamp)
+                val response = repository.completeMission(accessToken = token!!, idx = idx, photo = multipart, locationIdx = locIdx, timestamp= timestamp)
                 if (response.isSuccessful) {
                     Log.d(TAG,"  completeMission : ${response.body()} ")
                     _mission.value = response.body()!!.data
@@ -128,7 +128,7 @@ class MissionViewModel @Inject constructor(
 
 //    fun completeMission(data : ImageData, idx: Int){
 //        viewModelScope.launch {
-//            //val result = missionRepository.completeMission(token,idx, data)
+//            //val result = repository.completeMission(token,idx, data)
 //            //_mission.value = result.body()!!.data
 //            Log.d(TAG,"complete mission ${data}")
 //            val time = DateUtils.formatDuration(startTime, LocalDateTime.now())

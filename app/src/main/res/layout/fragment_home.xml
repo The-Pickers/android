@@ -30,7 +30,7 @@
         android:layout_marginBottom="61dp"
         android:text="바다 거북 2마리를\n살리셨나요?"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="28sp"
         android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
         app:layout_constraintBottom_toTopOf="@id/layout_bottom"
         app:layout_constraintStart_toStartOf="parent" />

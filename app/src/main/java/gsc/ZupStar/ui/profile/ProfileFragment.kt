@@ -1,9 +1,11 @@
 package gsc.ZupStar.ui.profile
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,7 @@ class ProfileFragment : Fragment() {
         StatusBarUtil.updateStatusBarColor(requireActivity(), ContextCompat.getColor(requireContext(), R.color.profile))
         spf = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         setUpObserver()
+
         return binding.root
     }
 
@@ -44,6 +47,7 @@ class ProfileFragment : Fragment() {
 
     private fun setUpObserver(){
         viewModel.profile.observe(viewLifecycleOwner, Observer {
+            Log.d(TAG,"fragment ${it}")
             if (it == null) return@Observer
             binding.tvName.text = it.name
 
@@ -51,7 +55,9 @@ class ProfileFragment : Fragment() {
                 binding.tvTeam.text = it.team
             } else {
                 binding.tvTeam.setOnClickListener {
-                    // intent
+                    Log.d(TAG, "click")
+                    val intent = Intent(requireActivity(), EditTeamActivity::class.java)
+                    requireActivity().startActivity(intent)
                 }
             }
             getImgUri()
@@ -59,7 +65,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getImgUri(){
-        val uriString = spf.getString("profile_uri", null)
+        val uriString =  spf.getString("profile_image",null)
+        Log.d(TAG,"uri : ${uriString}")
         if (uriString != null) {
             val uri = uriString?.let { Uri.parse(it) }
             binding.ivProfileImg.setImageURI(uri)

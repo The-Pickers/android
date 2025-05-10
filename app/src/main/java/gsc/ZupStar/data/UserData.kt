@@ -7,12 +7,10 @@ data class UserData(
     val idx : Int,
     @SerializedName("id")
     val id : String,
-    @SerializedName("password")
-    val password : String,
     @SerializedName("name")
     val name : String,
     @SerializedName("team_name")
-    val team : String,
+    val team : String= "",
     @SerializedName("profile_image_url")
-    val profile : String
+    val profile : String =""
 )

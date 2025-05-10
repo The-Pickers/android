@@ -30,6 +30,7 @@ class UserViewModel @Inject constructor(
 
     private val _profile = MutableLiveData<UserData>()
     val profile : LiveData<UserData> get() = _profile
+
     private val spf = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
     fun getToken(): Int? {
         return spf.getInt("token", -1)

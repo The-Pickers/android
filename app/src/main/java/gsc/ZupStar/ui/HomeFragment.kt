@@ -3,7 +3,6 @@ package gsc.ZupStar.sampledata
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -14,6 +13,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import android.Manifest
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.hardware.Camera
 import android.widget.Toast
@@ -41,6 +42,7 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
     lateinit var binding : FragmentHomeBinding
     lateinit var locationHelper: LocationHelper
+    lateinit var spf : SharedPreferences
     private val TAG = javaClass.simpleName
     private val missionViewModel : MissionViewModel by viewModels()
     private val homeViewModel : HomeViewModel by viewModels()
@@ -57,6 +59,7 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         setUpObservers()
+        spf = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         StatusBarUtil.updateStatusBarColor(requireActivity(), ContextCompat.getColor(requireContext(), R.color.home))
         locationHelper = LocationHelper(requireActivity(), requireContext())
         locationHelper.checkLocationPermission {
@@ -90,6 +93,7 @@ class HomeFragment : Fragment() {
         super.onResume()
         binding.btnStart.text = if (missionIdx != 0) "Complete !" else "Get Start"
         homeViewModel.getAccount()
+        homeViewModel.getComment()
 
     }
 
@@ -146,11 +150,13 @@ class HomeFragment : Fragment() {
 
         homeViewModel.account.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
+
             setAccountInfo(it)
         })
     }
 
     private fun setAccountInfo(data: AccountData) {
+        spf.edit().putInt("score", data.totalScore)
         binding.tvMission.text = data.missionCount.toString()
         binding.tvPoint.text ='+'+data.totalScore.toString()
         binding.tvCo2.text = data.carbonReduction.toString()

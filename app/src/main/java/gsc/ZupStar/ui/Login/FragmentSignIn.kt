@@ -1,8 +1,11 @@
 package gsc.ZupStar.ui.Login
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
@@ -10,6 +13,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -41,6 +46,8 @@ class FragmentSignIn:Fragment() {
         binding.tvChangeView.setOnClickListener {
             changeFragment()
         }
+
+
 
         binding.btnEnter.setOnClickListener {
             val data = LoginData(
@@ -102,4 +109,7 @@ class FragmentSignIn:Fragment() {
             R.id.fragment_login, FragmentSignUp()
         ).commit()
     }
+
+
+
 }

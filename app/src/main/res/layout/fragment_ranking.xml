@@ -9,7 +9,7 @@
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/sub_color"
+        android:background="@color/rank"
         android:paddingBottom="20dp"
         app:layout_constraintTop_toTopOf="parent">
     <TextView
@@ -19,17 +19,18 @@
         android:text="@string/nav_ranking"
         android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
         android:textSize="30sp"
-        android:textColor="@color/main_color"
+        android:textColor="@color/text_main"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
     <TextView
         android:id="@+id/tv_team"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.42"
-        android:background="@drawable/background_box_16"
+        android:background="@drawable/background_rank_chip_l"
         android:backgroundTint="@color/unselected_rank"
         android:text="Team"
         android:textSize="18sp"
@@ -38,6 +39,7 @@
         android:gravity="center"
         android:paddingVertical="8dp"
         android:layout_marginTop="24dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_individual"/>
@@ -47,8 +49,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.42"
-        android:background="@drawable/background_box_16"
-        android:backgroundTint="@color/main_color"
+        android:background="@drawable/background_rank_chip_r"
+        android:backgroundTint="@color/selected_rank"
         android:text="Individual"
         android:textSize="18sp"
         android:textColor="@color/white"
@@ -56,6 +58,7 @@
         android:gravity="center"
         android:paddingVertical="8dp"
         android:layout_marginTop="24dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_team"/>
@@ -135,7 +138,7 @@
             android:layout_height="wrap_content"
             android:text="4,352 pts"
             android:textSize="18sp"
-            android:textColor="@color/main_color"
+            android:textColor="@color/selected_rank"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

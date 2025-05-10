@@ -27,7 +27,6 @@ class HomeViewModel @Inject constructor(
     private val _account = MutableLiveData<AccountData>()
     val account : LiveData<AccountData> get() = _account
 
-    private var idx = 0
     private val spf = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
     fun getToken(): Int? {
         return spf.getInt("token", -1)
@@ -36,9 +35,18 @@ class HomeViewModel @Inject constructor(
 
     fun getComment(){
         viewModelScope.launch {
-            //val result = homeRepository.getComment(token)
-            _comment.value = dummyComment.getComment(idx)
-            idx = (idx+1)%10
+            try {
+                val token = getToken()
+                val response = repository.getComment(token!!)
+                if (response.isSuccessful) {
+                    Log.d(TAG," getComment() 응답성공 : ${response.body()} ")
+                    _comment.value = response.body()!!.data.message
+                }
+                else
+                    Log.d(TAG," getComment() 응답실패 : ${response.body()} ")
+            }catch (e: Exception){
+                Log.d(TAG, " getComment() api 요청 실패: ${e}")
+            }
         }
     }
 

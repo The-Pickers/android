@@ -4,26 +4,28 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
-import android.text.Html
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ZupStar.R
-import gsc.ZupStar.data.TeamData
+import gsc.ZupStar.databinding.FragmentSearchTeamBinding
 import gsc.ZupStar.databinding.FragmentSignUpBinding
 import kotlin.getValue
 
 @AndroidEntryPoint
-class CreateTeamFargment: Fragment() {
+class SearchTeamFragment: Fragment() {
     private val TAG = javaClass.simpleName
     lateinit var spf : SharedPreferences
-    lateinit var binding: FragmentSignUpBinding
+    lateinit var binding: FragmentSearchTeamBinding
+    lateinit var adapter: SearchTeamRVAdapter
     private val viewModel : TeamViewModel by viewModels()
 
     override fun onCreateView(
@@ -31,59 +33,47 @@ class CreateTeamFargment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        binding = FragmentSearchTeamBinding.inflate(inflater, container, false)
         spf = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        setView()
-        checkInput()
-        setTextEditor()
         setUpObserver()
+        setTextEditor()
+        adapter = SearchTeamRVAdapter(itemClick = { idx ->
+            viewModel.joinTeam(idx)
+        })
         binding.tvChangeView.setOnClickListener {
             changeFragment()
         }
 
-        binding.btnEnter.setOnClickListener {
-            val name = binding.etInputName.text.toString()
-            val data = TeamData(0,name, "")
-            viewModel.createTeam(data)
-        }
+        binding.rvTeam.adapter = adapter
+        binding.rvTeam.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
 
         return binding.root
     }
-
     private fun setUpObserver(){
-        // 생성 성공시 종료 -> 프로필로 돌아가기
+        viewModel.teamList.observe(viewLifecycleOwner, Observer {
+            if (it==null) return@Observer
+            adapter.changeData(it)
+        })
+        // 가입 성공시 종료 -> 프로필로 돌아가기
         viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
             if (it==null) return@Observer
             Log.d(TAG,"생성 ${it}")
             if (it) requireActivity().finish()
         })
     }
-
-    private fun setView() {
-        binding.layoutInput.visibility= View.GONE
-        binding.tvTitle.text = "Team Build"
-        binding.btnEnter.text = "Team Build"
-        binding.tvChangeView.setText(Html.fromHtml("<u>" + "Add Team" + "</u>"));
-        binding.tvInfo.text = "Already have a Team?"
-    }
-
     private fun setTextEditor(){
+        // 글자 변할때마다 요청
         binding.etInputName.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(p0: Editable?) {
-                checkInput()
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                viewModel.searchTeam(binding.etInputName.text.toString());
             }
+            override fun afterTextChanged(p0: Editable?) {}
         })
-    }
-    private fun checkInput() {
-        val nameFlag : Boolean = binding.etInputName.text.isNotEmpty()
-        binding.btnEnter.isEnabled = nameFlag
     }
     private fun changeFragment(){
         requireActivity().supportFragmentManager.beginTransaction().replace(
-            R.id.fragment_login, SearchTeamFragment()
+            R.id.fragment_login, CreateTeamFargment()
         ).commit()
     }
-
 }

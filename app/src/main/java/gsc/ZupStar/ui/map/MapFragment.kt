@@ -24,6 +24,7 @@ import gsc.ZupStar.R
 import gsc.ZupStar.data.MapData
 import gsc.ZupStar.databinding.BottomsheetMapLogBinding
 import gsc.ZupStar.databinding.FragmentMapBinding
+import gsc.ZupStar.ui.HomeViewModel
 import gsc.ZupStar.ui.MainActivity.Companion.mapDataList
 import gsc.ZupStar.ui.MainActivity.Companion.misionLogList
 import gsc.ZupStar.ui.MissionCompleteActivity
@@ -42,6 +43,7 @@ class MapFragment : Fragment() {
     lateinit var mapViews: List<ImageView>
     private val adapter = MissionLogRVAdapter()
     private val missionViewModel : MissionViewModel by viewModels()
+    private val  mapViewModel : MapViewModel by viewModels()
     private val TAG = javaClass.simpleName
 
     override fun onCreateView(
@@ -54,7 +56,7 @@ class MapFragment : Fragment() {
         setBottomSheet()
         setUpObservers()
         mapViews = listOf( binding.ivMap1,binding.ivMap2,binding.ivMap3,binding.ivMap4,binding.ivMap5,binding.ivMap6,binding.ivMap7, binding.ivMap8, binding.ivMap9)
-        for (data in mapDataList) mapViews[data.location].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
+
         locationHelper = LocationHelper(requireActivity(), requireContext())
         locationHelper.checkLocationPermission {
             fetchLocation()
@@ -67,18 +69,19 @@ class MapFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         missionViewModel.getMissionList()
-
-//        if (complete_mission_loc >=0 ){
-//            val loc = complete_mission_loc
-//            complete_mission_loc = -1
-//            changeMap(loc)
-//        }
+        mapViewModel.getMapList()
     }
 
     private fun setUpObservers(){
         missionViewModel.missionList.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
             adapter.addData(it)
+        } )
+
+        mapViewModel.mapList.observe (viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            for (data in it)
+                mapViews[data.location-1].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
         } )
     }
     private fun changeMap(loc: Int) {

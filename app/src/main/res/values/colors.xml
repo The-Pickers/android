@@ -21,6 +21,7 @@
     <color name="unselected_color">#999999</color>
     <color name="transparent">#00FFFFFF</color>
 
+    <color name="selected_rank">#7CB18F</color>
     <color name="unselected_rank">#F3F4F6</color>
 
     <color name="map_0">#ffffff</color>
@@ -29,6 +30,7 @@
     <color name="map_3">#76B676</color>
     <color name="map_4">#004B52</color>
 
+    <color name="rank">#EBF7E7</color>
     <color name="home">#F6FCEE</color>
     <color name="mission">#9AD192</color>
     <color name="map">#FBFCF7</color>

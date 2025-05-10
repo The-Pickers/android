@@ -30,6 +30,7 @@ class MissionLogRVAdapter() : RecyclerView.Adapter<MissionLogRVAdapter.ViewHolde
     }
 
     fun addData(list : List<MissionData>){
+        itemList.clear()
         itemList.addAll(list)
         notifyDataSetChanged()
     }

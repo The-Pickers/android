@@ -7,23 +7,23 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="gsc.ZupStar.sampledata.HomeFragment"
+        android:name="gsc.ThePickers.sampledata.HomeFragment"
         android:label="@string/nav_home"
         tools:layout="@layout/fragment_home"
         />
     <fragment
         android:id="@+id/navigation_map"
-        android:name="gsc.ZupStar.ui.map.MapFragment"
+        android:name="gsc.ThePickers.ui.map.MapFragment"
         android:label="@string/nav_map"
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/navigation_ranking"
-        android:name="gsc.ZupStar.ui.Ranking.RankingFragment"
+        android:name="gsc.ThePickers.ui.Ranking.RankingFragment"
         android:label="@string/nav_ranking"
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="gsc.ZupStar.ui.profile.ProfileFragment"
+        android:name="gsc.ThePickers.ui.profile.ProfileFragment"
         android:label="@string/nav_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

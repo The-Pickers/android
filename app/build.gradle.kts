@@ -13,11 +13,11 @@ plugins {
 }
 
 android {
-    namespace = "gsc.ZupStar"
+    namespace = "gsc.ThePickers"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "gsc.ZupStar"
+        applicationId = "gsc.ThePickers"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

@@ -36,4 +36,6 @@
     <color name="map">#FBFCF7</color>
     <color name="profile">#C9E6C4</color>
     <color name="bottom_sheet">#B2F0FDFC</color>
+
+    <color name="splash">#EBF6E9</color>
 </resources>

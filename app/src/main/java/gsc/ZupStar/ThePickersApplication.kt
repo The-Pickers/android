@@ -4,9 +4,9 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class ZupStarApplication : Application(){
+class ThePickersApplication : Application(){
     companion object {
-        lateinit var instance: ZupStarApplication
+        lateinit var instance: ThePickersApplication
             private set
 
         fun getString(resId: Int): String {

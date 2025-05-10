@@ -48,12 +48,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        spf = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        token = spf.getInt("token",-1)
-        if (token<0){
-            val intent = Intent(this,ActivityLogin::class.java)
-            startActivity(intent)
-        }
         setContentView(binding.root)
 
         val bottomNav : BottomNavigationView = binding.navBottom

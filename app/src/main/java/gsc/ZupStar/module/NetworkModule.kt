@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import gsc.ZupStar.R
-import gsc.ZupStar.ZupStarApplication
+import gsc.ZupStar.ThePickersApplication
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -62,7 +62,7 @@ object NetworkModule {
     ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(ZupStarApplication.getString(R.string.base_url))
+            .baseUrl(ThePickersApplication.getString(R.string.base_url))
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

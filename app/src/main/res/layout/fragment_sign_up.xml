@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tv_title"
@@ -26,15 +27,18 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title">
         <ImageView
             android:id="@+id/iv_profile_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit_img" />
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_edit_img"
+            android:background="@drawable/ic_empty_profile"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Full Name"
+            android:text="Name"
             android:textAppearance="@style/TextAppearance.App.Pretendard.Basic"
             android:textColor="@color/black"
             android:textSize="14sp"
@@ -47,7 +51,7 @@
             android:paddingVertical="16dp"
             android:paddingHorizontal="12dp"
             android:textSize="16sp"
-            android:hint="Enter your name"
+            android:hint="Enter name"
             android:textColor="@color/black"
             android:textColorHint="@color/unselected_color"/>
 
@@ -66,6 +70,7 @@
         app:layout_constraintTop_toBottomOf="@id/layout_top">
 
         <TextView
+            android:id="@+id/tv_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="E-Mail"
@@ -83,7 +88,9 @@
             android:textColor="@color/black"
             android:hint="Enter your email"
             android:textColorHint="@color/unselected_color"/>
+
         <TextView
+            android:id="@+id/tv_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Password"

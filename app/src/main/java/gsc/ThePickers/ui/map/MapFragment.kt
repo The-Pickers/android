@@ -22,7 +22,6 @@ import gsc.ThePickers.R
 import gsc.ThePickers.data.MapData
 import gsc.ThePickers.databinding.BottomsheetMapLogBinding
 import gsc.ThePickers.databinding.FragmentMapBinding
-import gsc.ThePickers.ui.MainActivity.Companion.mapDataList
 import gsc.ThePickers.ui.MissionViewModel
 import gsc.ThePickers.util.LocationHelper
 import gsc.ThePickers.util.StatusBarUtil
@@ -77,13 +76,13 @@ class MapFragment : Fragment() {
                 mapViews[data.location-1].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
         } )
     }
-    private fun changeMap(loc: Int) {
-        val curColor = getColor(mapDataList[loc])
-        mapDataList[loc].mission++
-        val newColor = getColor(mapDataList[loc])
-        if (curColor != newColor)
-            animateColorFilter(mapViews[loc], curColor, newColor)
-    }
+//    private fun changeMap(loc: Int) {
+//        val curColor = getColor(mapDataList[loc])
+//        mapDataList[loc].mission++
+//        val newColor = getColor(mapDataList[loc])
+//        if (curColor != newColor)
+//            animateColorFilter(mapViews[loc], curColor, newColor)
+//    }
 
 
 

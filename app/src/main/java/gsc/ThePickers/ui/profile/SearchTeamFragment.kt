@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -41,6 +42,7 @@ class SearchTeamFragment: Fragment() {
         binding.tvChangeView.setOnClickListener {
             changeFragment()
         }
+        binding.tvChangeView.setText(Html.fromHtml("<u>" + "Team Build" + "</u>"));
 
         binding.rvTeam.adapter = adapter
         binding.rvTeam.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
@@ -55,7 +57,7 @@ class SearchTeamFragment: Fragment() {
         // 가입 성공시 종료 -> 프로필로 돌아가기
         viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
             if (it==null) return@Observer
-            Log.d(TAG,"생성 ${it}")
+            Log.d(TAG,"가입 ${it}")
             if (it) requireActivity().finish()
         })
     }

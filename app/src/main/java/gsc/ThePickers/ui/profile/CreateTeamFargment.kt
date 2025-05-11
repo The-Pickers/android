@@ -60,7 +60,10 @@ class CreateTeamFargment: Fragment() {
     }
 
     private fun setView() {
-        binding.layoutInput.visibility= View.GONE
+        binding.etInputPassword.visibility = View.GONE
+        binding.tvPassword.visibility = View.GONE
+        binding.tvEmail.text = "Description"
+        binding.etInputEmail.hint = "Describe your team’s cleanup activity"
         binding.tvTitle.text = "Team Build"
         binding.btnEnter.text = "Team Build"
         binding.tvChangeView.setText(Html.fromHtml("<u>" + "Add Team" + "</u>"));
@@ -75,10 +78,18 @@ class CreateTeamFargment: Fragment() {
                 checkInput()
             }
         })
+        binding.etInputEmail.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                checkInput()
+            }
+        })
     }
     private fun checkInput() {
         val nameFlag : Boolean = binding.etInputName.text.isNotEmpty()
-        binding.btnEnter.isEnabled = nameFlag
+        val infoFlag : Boolean = binding.etInputEmail.text.isNotEmpty()
+        binding.btnEnter.isEnabled = nameFlag && infoFlag
     }
     private fun changeFragment(){
         requireActivity().supportFragmentManager.beginTransaction().replace(

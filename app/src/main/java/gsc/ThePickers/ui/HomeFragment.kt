@@ -20,22 +20,17 @@ import android.hardware.Camera
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
 import gsc.ThePickers.data.AccountData
 import gsc.ThePickers.databinding.FragmentHomeBinding
 import gsc.ThePickers.ui.HomeViewModel
 import gsc.ThePickers.ui.MainActivity.Companion.REQUEST_CAMERA_PERMISSION
-import gsc.ThePickers.ui.MainActivity.Companion.misionLogList
 import gsc.ThePickers.ui.MissionCompleteActivity
 import gsc.ThePickers.ui.MissionViewModel
 import gsc.ThePickers.util.LocationHelper
 import gsc.ThePickers.util.StatusBarUtil
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -49,7 +44,6 @@ class HomeFragment : Fragment() {
     private var missionIdx : Int = 0
     private var curlocation : String = "location"
     private var job: Job? = null
-
 
 
     override fun onCreateView(
@@ -81,12 +75,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // 주기적으로 정령 멘트 교체
-        job = viewLifecycleOwner.lifecycleScope.launch {
-            while (isActive) {
-               // homeViewModel.getComment()
-                delay(10_000)  // 1분 대기
-            }
-        }
+//        job = viewLifecycleOwner.lifecycleScope.launch {
+//            while (isActive) {
+//               // homeViewModel.getComment()
+//                delay(10_000)  // 1분 대기
+//            }
+//        }
     }
 
     override fun onResume() {
@@ -132,7 +126,6 @@ class HomeFragment : Fragment() {
             if (it == null) return@Observer
             Log.d(TAG,"fragment completed ${missionIdx}")
             missionIdx = 0
-            misionLogList.add(it)
             val intent = Intent(requireActivity(),MissionCompleteActivity::class.java)
             intent.putExtra("result",it)
             startActivity(intent)

@@ -2,7 +2,9 @@ package gsc.ThePickers.ui.Ranking
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +26,7 @@ class RankingFragment : Fragment() {
     lateinit var spf : SharedPreferences
     private var myName = ""
     private var myScore = 0
+    private val TAG = javaClass.simpleName
 
     private val teamRankList: List<RankData> = listOf(
         RankData(1, "TrashBusters", 3980, "Trash pickup crew"),
@@ -65,6 +68,7 @@ class RankingFragment : Fragment() {
         binding.rvRank.adapter = adapter
         initMyInfo()
         binding.tvIndividual.setOnClickListener {
+            Log.d(TAG,"isteam ${isTeam}")
             if (isTeam) {
                 isTeam = !isTeam
                 setButton(binding.tvTeam, MODE_UNSELECT)
@@ -74,6 +78,7 @@ class RankingFragment : Fragment() {
             }
         }
         binding.tvTeam.setOnClickListener {
+            Log.d(TAG,"isteam ${isTeam}")
             if (!isTeam){
                 isTeam = !isTeam
                 setButton(binding.tvTeam, MODE_SELECT)
@@ -87,12 +92,19 @@ class RankingFragment : Fragment() {
     }
 
     private fun initMyInfo(){
-        val myinfo = if (isTeam) RankData(9, "StreetCleaners", 1580, "Street team")
-                    else RankData(24, myName, myScore, "StreetCleaners")
+        var myinfo = RankData(0,"",0,"")
+        if (isTeam){
+            binding.ivProfileImg.setImageResource(R.drawable.icon_app_v2)
+            myinfo = RankData(24, myName, myScore, "StreetCleaners")
+        } else{
+            getImgUri()
+            myinfo =  RankData(9, "StreetCleaners", 1580, "Street team")
+        }
         binding.tvName.text = myinfo.name
         binding.tvInfo.text = myinfo.info
         binding.tvIdx.text = myinfo.idx.toString()
         binding.tvPoint.text = myinfo.rank.toString()+"pts"
+
     }
 
     private fun setButton(view: TextView, status : Int){
@@ -101,6 +113,15 @@ class RankingFragment : Fragment() {
         view.setTextColor(requireContext().getColor(text[status]))
         ViewCompat.setBackgroundTintList(view, ContextCompat.getColorStateList(requireContext(), background[status])
         )
+    }
+
+    private fun getImgUri(){
+        val uriString =  spf.getString("profile_image",null)
+        if (uriString != null) {
+            val uri = uriString?.let { Uri.parse(it) }
+            binding.ivProfileImg.setImageURI(uri)
+        }
+
     }
 
 }

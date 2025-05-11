@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +27,7 @@ class SplashActivity : AppCompatActivity() {
 
         val spf = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val token = spf.getInt("token",-1)
+        Log.d(TAG,"token ${token}")
 
         val intent = if(token<0) Intent(this,ActivityLogin::class.java)else Intent(this, MainActivity::class.java)
 

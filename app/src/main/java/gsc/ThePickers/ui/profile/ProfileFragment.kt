@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
+import gsc.ThePickers.data.UserData
 import gsc.ThePickers.databinding.FragmentProfileBinding
 import gsc.ThePickers.ui.Login.UserViewModel
 import gsc.ThePickers.util.StatusBarUtil
@@ -25,6 +26,7 @@ class ProfileFragment : Fragment() {
     lateinit var spf : SharedPreferences
     lateinit var binding : FragmentProfileBinding
     private val viewModel : UserViewModel by viewModels()
+    private var teamFlag : Boolean = true
 
 
     override fun onCreateView(
@@ -36,6 +38,13 @@ class ProfileFragment : Fragment() {
         StatusBarUtil.updateStatusBarColor(requireActivity(), ContextCompat.getColor(requireContext(), R.color.profile))
         spf = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         setUpObserver()
+
+        binding.tvTeam.setOnClickListener {
+            if(!teamFlag){
+                val intent = Intent(requireActivity(), EditTeamActivity::class.java)
+                requireActivity().startActivity(intent)
+            }
+        }
 
         return binding.root
     }
@@ -52,13 +61,11 @@ class ProfileFragment : Fragment() {
             binding.tvName.text = it.name
 
             if (it.team.isNotEmpty()) {
+                teamFlag = true
                 binding.tvTeam.text = it.team
             } else {
-                binding.tvTeam.setOnClickListener {
-                    Log.d(TAG, "click")
-                    val intent = Intent(requireActivity(), EditTeamActivity::class.java)
-                    requireActivity().startActivity(intent)
-                }
+                teamFlag = false
+                binding.tvTeam.text = "+ Add Team"
             }
             getImgUri()
         })

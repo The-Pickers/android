@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,6 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
 import gsc.ThePickers.data.SignUpData
 import gsc.ThePickers.databinding.FragmentSignUpBinding
+import java.io.File
+import java.io.FileOutputStream
 
 @AndroidEntryPoint
 class FragmentSignUp :Fragment() {
@@ -62,7 +65,12 @@ class FragmentSignUp :Fragment() {
                 id =  binding.etInputEmail.text.toString(),
                 password = binding.etInputPassword.text.toString()
             )
-            viewModel.signUp(data)
+            // 더미용
+            spf.edit().putString("name",binding.etInputName.text.toString()).apply()
+            spf.edit().putInt("token",1).apply()
+
+            Log.d(TAG,"save")
+           // viewModel.signUp(data)
         }
 
         return binding.root
@@ -76,8 +84,10 @@ class FragmentSignUp :Fragment() {
         ) { uri: Uri? ->
             if (uri != null) {
                 Log.d(TAG, "이미지 선택됨: $uri")
-                binding.ivProfileImg.setImageURI(uri)
-                spf.edit().putString("profile_image", uri.toString()).apply()
+                val persistedUri = persistImageFromUri(uri)
+                binding.ivProfileImg.setImageURI(persistedUri)
+                spf.edit().putString("profile_image", persistedUri.toString()).apply()
+
             } else {
                 Log.d(TAG, "이미지 선택 실패 또는 취소됨")
             }
@@ -151,5 +161,17 @@ class FragmentSignUp :Fragment() {
     private fun openGallery() {
         Log.d(TAG,"open Gallery")
         imagePickerLauncher.launch("image/*")
+    }
+
+    private fun persistImageFromUri(uri: Uri): Uri {
+        val inputStream = requireContext().contentResolver.openInputStream(uri)
+        val filename = "profile_${System.currentTimeMillis()}.jpg"
+        val file = File(requireContext().cacheDir, filename)
+        inputStream.use { input ->
+            FileOutputStream(file).use { output ->
+                input?.copyTo(output)
+            }
+        }
+        return FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.fileprovider", file)
     }
 }

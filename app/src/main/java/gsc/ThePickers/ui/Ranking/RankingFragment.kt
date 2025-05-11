@@ -85,6 +85,7 @@ class RankingFragment : Fragment() {
                 setButton(binding.tvIndividual, MODE_UNSELECT)
                 binding.rvRank.adapter=  RankingRVAdapter(teamRankList)
                 initMyInfo()
+
             }
         }
 
@@ -95,10 +96,10 @@ class RankingFragment : Fragment() {
         var myinfo = RankData(0,"",0,"")
         if (isTeam){
             binding.ivProfileImg.setImageResource(R.drawable.icon_app_v2)
-            myinfo = RankData(24, myName, myScore, "StreetCleaners")
+            myinfo =  RankData(9, "StreetCleaners", 1580, "Street team")
         } else{
             getImgUri()
-            myinfo =  RankData(9, "StreetCleaners", 1580, "Street team")
+            myinfo = RankData(24, myName, myScore, "StreetCleaners")
         }
         binding.tvName.text = myinfo.name
         binding.tvInfo.text = myinfo.info

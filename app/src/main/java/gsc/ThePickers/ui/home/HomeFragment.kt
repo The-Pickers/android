@@ -25,10 +25,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
 import gsc.ThePickers.data.AccountData
 import gsc.ThePickers.databinding.FragmentHomeBinding
-import gsc.ThePickers.ui.HomeViewModel
+import gsc.ThePickers.ui.home.HomeViewModel
 import gsc.ThePickers.ui.MainActivity.Companion.REQUEST_CAMERA_PERMISSION
-import gsc.ThePickers.ui.MissionCompleteActivity
-import gsc.ThePickers.ui.MissionViewModel
+import gsc.ThePickers.ui.home.MissionCompleteActivity
+import gsc.ThePickers.ui.home.MissionViewModel
 import gsc.ThePickers.util.LocationHelper
 import gsc.ThePickers.util.StatusBarUtil
 import kotlinx.coroutines.Job

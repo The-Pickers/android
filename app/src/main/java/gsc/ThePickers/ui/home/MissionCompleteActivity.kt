@@ -1,4 +1,4 @@
-package gsc.ThePickers.ui
+package gsc.ThePickers.ui.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
 import gsc.ThePickers.data.MissionData
 import gsc.ThePickers.databinding.ActivityMissionCompleteBinding
+import gsc.ThePickers.ui.MainActivity
 import gsc.ThePickers.util.DateUtils
 import gsc.ThePickers.util.LocationUtil
 import gsc.ThePickers.util.StatusBarUtil
@@ -41,8 +42,7 @@ class MissionCompleteActivity : AppCompatActivity() {
         binding.btnComplete.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java).apply {
                 putExtra("targetFragmentId", R.id.navigation_map)  // 이동할 NavGraph 목적지 ID
-                //addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                addFlags( Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
              }
             startActivity(intent)
             finish()

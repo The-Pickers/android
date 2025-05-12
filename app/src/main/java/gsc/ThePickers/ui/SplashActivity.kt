@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
 import gsc.ThePickers.databinding.ActivitySplashBinding
 import gsc.ThePickers.ui.Login.ActivityLogin
+import gsc.ThePickers.ui.home.HomeViewModel
 import gsc.ThePickers.ui.map.MapViewModel
 import gsc.ThePickers.util.StatusBarUtil
 import kotlin.getValue

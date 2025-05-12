@@ -1,4 +1,4 @@
-package gsc.ThePickers.ui
+package gsc.ThePickers.ui.home
 
 import android.content.Context
 import android.graphics.Bitmap

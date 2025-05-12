@@ -10,7 +10,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
 import gsc.ThePickers.data.LoginData
 import gsc.ThePickers.databinding.FragmentSignUpBinding
-import gsc.ThePickers.ui.HomeViewModel
+import gsc.ThePickers.ui.home.HomeViewModel
 import gsc.ThePickers.ui.MainActivity
 import gsc.ThePickers.ui.map.MapViewModel
 

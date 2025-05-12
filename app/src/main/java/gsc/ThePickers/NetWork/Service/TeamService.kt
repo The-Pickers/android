@@ -26,7 +26,6 @@ interface TeamService {
     @POST("/teams/search")
     suspend fun searchTeam(
         @Header("Authorization") accessToken: Int,
-        //@Query ("team_name") name : String
         @Body body : TeamBody
     ): Response<DefaultResponse<List<TeamData>>>
 }

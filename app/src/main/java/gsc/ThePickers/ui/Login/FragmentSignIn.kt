@@ -67,7 +67,7 @@ class FragmentSignIn:Fragment() {
     private fun setUpObserver(){
         viewModel.token.observe(viewLifecycleOwner, Observer {
             if (it==null) return@Observer
-            spf.edit().putInt("token",it).commit()
+            spf.edit().putInt("token",it).apply()
             homeViewModel.getComment()
             homeViewModel.getAccount()
             mapViewModel.getMapList()
@@ -82,6 +82,7 @@ class FragmentSignIn:Fragment() {
         homeViewModel.account.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
             val json = gson.toJson(it)
+            spf.edit().putInt("score",it.totalScore).apply()
             spf.edit().putString("account",json).apply()
             flag2 = true
             checkValue()

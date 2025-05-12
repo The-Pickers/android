@@ -107,6 +107,7 @@
             android:paddingHorizontal="12dp"
             android:textSize="16sp"
             android:textColor="@color/black"
+            android:inputType="textPassword"
             android:hint="Enter your password"
             android:textColorHint="@color/unselected_color"/>
     </LinearLayout>

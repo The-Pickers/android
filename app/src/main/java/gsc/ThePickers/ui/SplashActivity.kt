@@ -45,7 +45,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(intent)
-        }, 600) // 0.6초동안 대기
+        }, 700) // 0.6초동안 대기
     }
     private fun setUpObservers(){
         val spf= getSharedPreferences("app_prefs", Context.MODE_PRIVATE)

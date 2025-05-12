@@ -84,7 +84,7 @@ class UserViewModel @Inject constructor(
                     Log.d(TAG,"getProfile() 응답실패 : ${response.body()} ")
             }catch (e: Exception){
                 Log.d(TAG, " getProfile() api 요청 실패: ${e}")
-                _profile.value = UserData(0,"qwer","aaaa")
+                _profile.value = UserData(0,"no_name","no_name")
             }
 
         }

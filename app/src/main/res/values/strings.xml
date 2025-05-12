@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">The Pickers</string>
-    <string name="base_url">http://165.246.124.2:3000</string>
+    <string name="base_url">http://165.246.207.133:3000</string>
 
 
     <string name="nav_home">Home</string>

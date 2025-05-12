@@ -2,6 +2,8 @@ package gsc.ThePickers.ui.map
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
@@ -17,8 +19,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
+import gsc.ThePickers.data.AccountData
 import gsc.ThePickers.data.MapData
 import gsc.ThePickers.databinding.BottomsheetMapLogBinding
 import gsc.ThePickers.databinding.FragmentMapBinding
@@ -33,10 +38,13 @@ class MapFragment : Fragment() {
     lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     lateinit var locationHelper: LocationHelper
     lateinit var mapViews: List<ImageView>
+    lateinit var spf : SharedPreferences
     private val adapter = MissionLogRVAdapter()
     private val missionViewModel : MissionViewModel by viewModels()
     private val  mapViewModel : MapViewModel by viewModels()
     private val TAG = javaClass.simpleName
+    private val gson = Gson()
+    private var mapList : List<MapData> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,16 +52,26 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapBinding.inflate(inflater,container,false)
+        spf = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        mapViews = listOf( binding.ivMap1,binding.ivMap2,binding.ivMap3,binding.ivMap4,binding.ivMap5,binding.ivMap6,binding.ivMap7, binding.ivMap8, binding.ivMap9)
         StatusBarUtil.updateStatusBarColor(requireActivity(), ContextCompat.getColor(requireContext(), R.color.map))
+        val json = spf.getString("mapData",null)
+        if (json != null){
+            val type = object : TypeToken<List<MapData>>() {}.type
+            mapList = gson.fromJson(json, type)
+            for (data in mapList)
+                mapViews[data.location-1].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
+        }
         setBottomSheet()
         setUpObservers()
-        mapViews = listOf( binding.ivMap1,binding.ivMap2,binding.ivMap3,binding.ivMap4,binding.ivMap5,binding.ivMap6,binding.ivMap7, binding.ivMap8, binding.ivMap9)
+
+
 
         locationHelper = LocationHelper(requireActivity(), requireContext())
         locationHelper.checkLocationPermission {
             fetchLocation()
         }
-
+        Log.d(TAG,"create")
         return binding.root
     }
 
@@ -72,19 +90,18 @@ class MapFragment : Fragment() {
 
         mapViewModel.mapList.observe (viewLifecycleOwner, Observer {
             if (it == null) return@Observer
-            for (data in it)
-                mapViews[data.location-1].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
+            if(mapList.isNotEmpty()){
+                for (data in it){
+                    val loc = data.location-1
+                    val curColor = getColor(mapList[loc])
+                    val newColor = getColor(it[loc])
+                    if (curColor != newColor)
+                        animateColorFilter(mapViews[loc], curColor, newColor)
+                }
+            }else
+                for (data in it) mapViews[data.location-1].setColorFilter(ContextCompat.getColor(requireContext(), getColor(data)), PorterDuff.Mode.SRC_IN )
         } )
     }
-//    private fun changeMap(loc: Int) {
-//        val curColor = getColor(mapDataList[loc])
-//        mapDataList[loc].mission++
-//        val newColor = getColor(mapDataList[loc])
-//        if (curColor != newColor)
-//            animateColorFilter(mapViews[loc], curColor, newColor)
-//    }
-
-
 
     private fun setBottomSheet(){
         // 바텀시트 바인딩 가져오기

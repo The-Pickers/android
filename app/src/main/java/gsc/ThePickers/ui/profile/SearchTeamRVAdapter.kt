@@ -3,6 +3,7 @@ package gsc.ThePickers.ui.profile
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import gsc.ThePickers.R
 import gsc.ThePickers.data.TeamData
 import gsc.ThePickers.databinding.RvItemTeamBinding
 
@@ -36,6 +37,7 @@ class SearchTeamRVAdapter(
     inner class ViewHolder (val binding : RvItemTeamBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(pos : Int){
             val item = itemList[pos]
+            if (item.name == "StreetCleaners") binding.ivProfileImg.setImageResource(R.drawable.icon_app_v2)
             binding.tvName.text = item.name
             binding.tvInfo.text = item.info
             binding.ivAddTeam.setOnClickListener {

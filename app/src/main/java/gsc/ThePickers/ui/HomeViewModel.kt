@@ -62,6 +62,7 @@ class HomeViewModel @Inject constructor(
                     Log.d(TAG," getAccount() 응답실패 : ${response.body()} ")
             }catch (e: Exception){
                 Log.d(TAG, " getAccount() api 요청 실패: ${e}")
+                _account.value = AccountData(0,0,0f)
             }
 
         }

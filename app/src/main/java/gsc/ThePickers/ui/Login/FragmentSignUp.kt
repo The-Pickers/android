@@ -34,6 +34,7 @@ class FragmentSignUp :Fragment() {
     lateinit var spf : SharedPreferences
     private val viewModel : UserViewModel by viewModels()
 
+
     private lateinit var galleryPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
 
@@ -65,12 +66,11 @@ class FragmentSignUp :Fragment() {
                 id =  binding.etInputEmail.text.toString(),
                 password = binding.etInputPassword.text.toString()
             )
-            // 더미용
-            spf.edit().putString("name",binding.etInputName.text.toString()).apply()
-            spf.edit().putInt("token",1).apply()
-
-            Log.d(TAG,"save")
-           // viewModel.signUp(data)
+//            // 더미용
+//            spf.edit().putString("name",binding.etInputName.text.toString()).apply()
+//            spf.edit().putInt("token",1).apply()
+//            Log.d(TAG,"save")
+           viewModel.signUp(data)
         }
 
         return binding.root

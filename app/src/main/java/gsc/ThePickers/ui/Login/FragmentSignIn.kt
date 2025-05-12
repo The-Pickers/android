@@ -10,14 +10,18 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
 import gsc.ThePickers.data.LoginData
 import gsc.ThePickers.databinding.FragmentSignUpBinding
+import gsc.ThePickers.ui.HomeViewModel
 import gsc.ThePickers.ui.MainActivity
+import gsc.ThePickers.ui.map.MapViewModel
 
 @AndroidEntryPoint
 class FragmentSignIn:Fragment() {
@@ -25,6 +29,12 @@ class FragmentSignIn:Fragment() {
     lateinit var spf : SharedPreferences
     lateinit var binding: FragmentSignUpBinding
     private val viewModel : UserViewModel by viewModels()
+    private val homeViewModel : HomeViewModel by viewModels()
+    private val  mapViewModel : MapViewModel by viewModels()
+    private val gson = Gson()
+    private var flag1 = false;
+    private var flag2 = false;
+    private var flag3 = false;
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,8 +49,6 @@ class FragmentSignIn:Fragment() {
         binding.tvChangeView.setOnClickListener {
             changeFragment()
         }
-
-
 
         binding.btnEnter.setOnClickListener {
             val data = LoginData(
@@ -60,10 +68,38 @@ class FragmentSignIn:Fragment() {
         viewModel.token.observe(viewLifecycleOwner, Observer {
             if (it==null) return@Observer
             spf.edit().putInt("token",it).commit()
+            homeViewModel.getComment()
+            homeViewModel.getAccount()
+            mapViewModel.getMapList()
+        })
+        mapViewModel.mapList.observe (viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            val json = gson.toJson(it)
+            spf.edit().putString("mapData",json).apply()
+            flag1 = true
+            checkValue()
+        })
+        homeViewModel.account.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            val json = gson.toJson(it)
+            spf.edit().putString("account",json).apply()
+            flag2 = true
+            checkValue()
+        })
+        homeViewModel.comment.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            spf.edit().putString("comment",it).apply()
+            flag3 = true
+            checkValue()
+        })
+    }
+
+    private fun checkValue(){
+        if(flag1 && flag2 && flag3){
             val intent = Intent(requireActivity(), MainActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
-        })
+        }
     }
 
     private fun setView() {

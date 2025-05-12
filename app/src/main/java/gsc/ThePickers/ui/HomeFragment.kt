@@ -20,6 +20,7 @@ import android.hardware.Camera
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import gsc.ThePickers.R
 import gsc.ThePickers.data.AccountData
@@ -44,7 +45,7 @@ class HomeFragment : Fragment() {
     private var missionIdx : Int = 0
     private var curlocation : String = "location"
     private var job: Job? = null
-
+    private val gson = Gson()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +55,16 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         setUpObservers()
         spf = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val json = spf.getString("account",null)
+        if(json != null){
+            val data = gson.fromJson(json, AccountData::class.java)
+            setAccountInfo(data)
+        }
+        val comment = spf.getString("comment",null)
+        if(comment != null){
+            binding.tvComment.text = comment
+        }
+
         StatusBarUtil.updateStatusBarColor(requireActivity(), ContextCompat.getColor(requireContext(), R.color.home))
         locationHelper = LocationHelper(requireActivity(), requireContext())
         locationHelper.checkLocationPermission {
